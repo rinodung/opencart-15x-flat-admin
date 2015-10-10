@@ -1,0 +1,20 @@
+.pavcol-sm-5 {
+    float: left;
+    min-height: 1px;
+    padding-left: 10px;
+    padding-right: 10px;
+    position: relative;
+    width: 20% !important;
+}
+.box-products .carousel-control,
+.product-info .carousel-control{
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	filter: alpha(opacity=0);
+	opacity: 0;
+}
+.box-products:hover .carousel-control,
+.product-info:hover .carousel-control{
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	filter: alpha(opacity=100);
+	opacity: 1;
+}

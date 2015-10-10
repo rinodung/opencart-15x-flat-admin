@@ -1,0 +1,37 @@
+body {
+	background-color: #fff;
+	background-image: url(../../image/halftone.png)
+}
+.box .box-heading, .headForCols {
+	background: #97d806;
+	border: 1px solid #97d806;
+	color: #fff;
+}
+.box .box-heading a {
+	color: #fff;
+}
+.nav-tabs > li + li {
+	border-left: 1px solid #fff;
+}
+.nav-tabs > li.active a {
+	color: #333;
+}
+.topBar {
+	background: transparent;
+}
+.head3 #logo, .head4 #logo {
+	background: #333
+}
+.topBar #search {
+	background: #333;
+}
+header, .cartImgWrap {
+	background: #97d806;
+}
+#currency, .topBar .links, .topBar #welcome a, .topBar #welcome, #language, .topBar #cart .heading, .head5 #cart .heading, .topBar #cart .heading a, .head5 #cart .heading a {
+	color: #333
+}
+.navbar .nav > li > a:hover {
+	background-color: #97d806;
+}
+

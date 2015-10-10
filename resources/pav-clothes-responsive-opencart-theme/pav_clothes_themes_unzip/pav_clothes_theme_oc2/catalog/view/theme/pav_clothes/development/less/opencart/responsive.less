@@ -1,0 +1,235 @@
+/******************************************************
+ * @package Pav Opencart Theme Framework for Opencart 1.5.x
+ * @version 1.1
+ * @author http://www.pavothemes.com
+ * @copyright	Copyright (C) Augus 2013 PavoThemes.com <@emai:pavothemes@gmail.com>.All rights reserved.
+ * @license		GNU General Public License version 2
+*******************************************************/
+.pavcol-md-5 {
+    float: left;
+    min-height: 1px;
+    padding-left: 10px;
+    padding-right: 10px;
+    position: relative;
+    width: 20%;
+}
+
+@media only screen and (min-width: 990px){
+	.pavcol-sm-5 {
+	    float: left;
+	    min-height: 1px;
+	    padding-left: 10px;
+	    padding-right: 10px;
+	    position: relative;
+	    width: 20%;
+	}
+}
+@media only screen and (max-width: 990px) {
+	.pavo-widget iframe{
+		display:none;
+	}
+	#cart .heading{
+		border-radius: 4px;
+		height: 35px;
+		line-height: 35px;
+		background-position: 8px 6px;
+		margin-left: 5px;
+	}
+	#cart .heading a span{
+		float: none;
+		padding-right: 15px;
+	}
+	#logo {
+		text-align: center; 
+		display: block !important;
+	}
+	.welcome .image{
+		float: none;
+		text-align: center;
+	}
+	#topbar{
+		padding: 10px 0;
+	}
+	#pav-mainnav {
+		position: absolute!important;
+		top:0;
+		left: 0;
+		width: 60px;
+		height: 60px!important;
+	}
+	.navbar-inverse .navbar-toggle{
+		background-color: #1BBC9B;
+		border-color: #1BBC9B;
+		display: block;
+		&:hover{
+			background-color: #1CAB8E;
+			border-color: #1CAB8E;
+		}
+	}
+	.navbar-collapse.collapse  {
+		display:  none!important
+	}
+	.btn-danger{
+		margin-top: 10px;
+	}
+	.zoomContainer{
+		display:  none !important;
+	}
+	
+}
+@media only screen and (max-width: 749px){
+	#logo {
+	    padding: 14px 0;
+	}
+	.wishlist-info td,
+	.wishlist-info th,		
+	table.compare-info td, 
+	table.compare-info th,
+	table.pav-checkout-product td,
+	table.pav-checkout-product th,
+	table.pav-shop-cart td,
+	table.pav-shop-cart th{
+		border-right: 0 none;
+		float: none !important;
+		text-align: left !important;
+		width: auto !important;
+	}
+	.wishlist-info tr td:before,
+	table.pav-shop-cart tr td:before{
+		content: attr(data-label);
+		float: left;
+		font-weight: bold;
+		text-align: left;
+		white-space: nowrap;
+		width: 50%;
+	}
+	.wishlist-info tr td,
+	table.pav-shop-cart tr td {
+		text-align:right;
+		min-height: 20px;
+		border-left: none;
+		background: none;
+	}
+	.wishlist-info thead,
+	table.pav-shop-cart thead {
+		 display:  none;
+	}
+	#search {
+	    input{
+
+	    }
+	}
+}
+@media only screen and (min-width: 600px) and (max-width: 766px) {
+		.tp-caption,.tp-thumbcontainer,.tparrows{
+		display: none;
+	}
+	.box-description{
+		display: none;
+	}
+	ul.links li{
+		margin-right: 7px;
+
+	}
+	.col-xs-6{
+		width: 100%;
+	}
+}
+
+/* Iphone 4 landscape */
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+	.product-filter > div{
+		margin-top: 5px;
+	}
+	.product-filter .product-compare{
+		float: left;
+		margin-left: 0;
+	}
+	.tp-caption,.tp-thumbcontainer,.tparrows{
+		display: none;
+	}
+	.box-description{
+		display: none;
+	}
+	.login a.login-icon{
+		display: none;
+	}
+	.currency{
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.htabs a{
+		padding: 15px;
+	}
+	.product-info .image-additional{
+		padding: 0;
+	}
+	.col-xs-6{
+		width: 100%;
+	}
+}
+
+/* Iphone 4 + 5 Portrait */
+@media only screen and (min-width: 240px) and (max-width: 320px) {
+	.pav-slideshow{
+		display: none;
+	}
+	.content-top{
+		margin-top: 20px;
+	}
+	.product-info .image-additional a{
+		margin-left: 0;
+	}
+	.product-info .image-additional{
+		padding: 0;
+	}
+}
+/* Large desktop */
+@media (min-width: 1200px) {
+    /* Code CSS here */
+}
+
+/*Ipad landscape*/
+@media (min-width: 940px) and (max-width: 1170px) {
+	.product-block .group-item .cart .button{
+		font-size: 11px;
+		padding: 0;
+	}
+	.pav-showcase .hightlight-featured-box .box-description{
+		left: 376px;
+	}
+	.newsletter-submit .inputbox{
+		width: 65%;
+	}
+}
+@media only screen and (max-width: 979px) {	
+	
+}
+/*Ipad Portrait*/
+@media only screen and (min-width: 768px) and (max-width: 979px) {
+	.tp-thumbcontainer,.tparrows{
+		display: none;
+	}
+		.pav-showcase .hightlight-featured-box .box-description{
+		left: 155px;
+	}
+
+
+}
+
+
+/* Iphone 5 landscape */
+@media only screen and (max-width: 767px) {
+
+}
+@media only screen and (min-width: 600px) and (max-width: 766px) {
+
+}
+ @media only screen and (max-width: 599px){
+	 	
+}
+ @media only screen and (min-width: 480px) and (max-width: 599px) {
+}
+@media only screen and (max-width: 480px){
+	
+}

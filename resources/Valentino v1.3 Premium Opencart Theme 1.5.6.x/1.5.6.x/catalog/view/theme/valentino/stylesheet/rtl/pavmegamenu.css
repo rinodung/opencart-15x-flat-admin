@@ -1,0 +1,289 @@
+#mainmenu ul.nav > li.dropdown:hover > .dropdown-menu {
+  display: block;
+}
+.megamenu .menu-icon {
+	background-position:left bottom !important;
+	padding-left:25px;
+	display:block;
+}
+.megamenu .menu-title{
+	display:block;
+	font-size: 19px;
+}	
+.megamenu .menu-desc{
+	display:block;
+	font-size:11px;
+	color: #d14d3b;
+}
+.megamenu  .menu-content{
+}
+.megamenu li.mega-group > a .caret{
+	display:none;
+}
+.nav.megamenu > li.homepage.open, .nav.megamenu > li.homepage:hover {
+	background: none;
+}
+.megamenu li.homepage a {
+    background: url(../image/magnum/icon-home.png) no-repeat scroll left center;
+    display: block;
+    overflow: hidden;
+    padding-left: 0;
+    text-indent: -9999em;
+    width: 20px;
+}
+
+.megamenu ul{
+	margin:0;
+	padding:0
+}
+.megamenu ul li{
+	list-style:none;
+}
+.nav.megamenu > li.open,
+.nav.megamenu > li:hover {
+    background: url(../image/magnum/bg_menu_hover.png) repeat-x scroll right center;
+}
+
+.nav.megamenu > li:last-child {
+}
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus,
+.dropdown-submenu:hover > a,
+.dropdown-submenu:focus > a {
+}
+.dropdown-submenu > a:after {
+ 
+    margin-right: -10px;
+    margin-top: -22px;
+}
+.megamenu .mega-col{
+	padding: 10px;
+}
+.megamenu .cols1{
+min-width:200px;
+}
+.megamenu .cols2{
+	min-width:500px;
+}
+.megamenu .cols3{
+	min-width:740px;
+}
+.fullwidth {
+
+}
+
+.megamenu .mega-group  > a .menu-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+    line-height: 30px;
+    text-decoration: none;
+}
+.mega-col-inner a {
+	text-decoration: none;
+}
+.mega-col-inner a .menu-title{
+	font-size: 12px;
+	color: #000;
+	/*background: url(../image/arrow-menu.gif) left 6px no-repeat;
+	padding-left: 10px;*/
+}
+.mega-col-inner a .menu-title:hover {
+	color: #d14d3b;
+}
+.dropdown-submenu > a:after {
+	display: none !important;
+}
+.megamenu .mega-group  > a .menu-title {
+	background: transparent;
+}
+.megamenu .mega-group  > a .menu-title:hover {
+	color: #333;
+}
+.megamenu .mega-group  > a .menu-title .caret {
+	display: none;
+}
+
+.dropdown-submenu > a:after, .dropdown-submenu > a:before {
+    display: none;
+}
+#mainmenu .navbar .navbar-inner ul.nav li.open .dropdown-submenu a b.arrow, #mainmenu .navbar .navbar-inner ul.nav li.open .dropdown-submenu a b.caret {
+	display: none;}
+
+
+.nav.megamenu ul li.mega-group{
+ padding:0;
+ background: none;
+ border-bottom: none;
+ }
+ 
+.pavo-widget .menu-title {
+	font-size: 18px;
+	margin-bottom: 10px;
+	 color: #000;
+}
+
+/*
+	custom style 
+ */
+.headForCols {
+	display: none
+}
+.navbar-inner {
+	background-color: transparent !important;
+	border: none !important;
+	background-image: none !important;
+	-webkit-border-radius: 0 0 0 0 !important;
+	-moz-border-radius: 0 0 0 0 !important;
+	border-radius: 0 0 0 0 !important;
+	-webkit-box-shadow: none !important;
+	-moz-box-shadow: none !important;
+	box-shadow: none !important;
+	padding: 0 !important;
+}
+.navbar .nav > li > a {
+	color: #fff !important;
+	text-shadow: none !important;
+	padding: 12px 17px 20px 17px !important;
+}
+.navbar .nav > li > a:hover {
+	background-color: #000;
+	color: #fff !important;
+}
+.navbar .nav .dropdown-toggle .caret {
+	position: absolute !important;
+	right: 4px !important;
+	bottom: 23px !important;
+	margin-top: 0 !important;
+	display: none;
+}
+.navbar .nav > li > a:hover .caret {
+	display: block;
+}
+.dropdown-menu {
+	border: none !important;
+	-webkit-border-radius: 0 !important;
+	-moz-border-radius: 0 !important;
+	border-radius: 0 !important;
+	z-index: 100000;
+	top: 90%;
+}
+.product-block {
+	display: inline-block;
+	margin: 0;
+	margin-bottom: 40px;
+}
+.product-block .name, .product-block .image, .product-block .rating, .product-block .price {
+	margin-bottom: 5px;
+}
+.widget-product-list .image {
+	float: left;
+	margin-right: 10px;
+}
+div.w-banner {
+	margin: 0 20px 20px 0;
+	border: 1px solid #eee;
+	padding: 5px;
+}
+.mega-col-inner a .menu-title {
+	font-family: Arial, Helvetica, sans-serif;
+}
+.navbar .nav li.dropdown > a:hover .caret, .navbar .nav li.dropdown > a:focus .caret {
+	border-top-color: #fff;
+	border-bottom-color: #fff;
+}
+
+/* mega menu in columns */
+#column-left .collapse, #column-right .collapse {
+	display: block
+}
+#column-left .navbar .nav, #column-right .navbar .nav {
+	margin: 0;
+	float: none;
+}
+#column-left .navbar .nav > li, #column-right .navbar .nav > li {
+	float: none;
+}
+#column-left .navbar .nav > li + li, #column-right .navbar .nav > li + li {
+	border-top: 1px solid #ddd;
+}
+#column-left .navbar .nav > li > a, #column-right .navbar .nav > li > a {
+	padding: 10px !important;
+}
+#column-left .dropdown-menu {
+	top: 0;
+	right: 100%;
+}
+#column-right .dropdown-menu {
+	top: 0;
+	left: 100%;
+	right: inherit;
+}
+#column-right .row-fluid [class*="span"] {
+	float: left;
+}
+#column-left .navbar-inner, #column-right .navbar-inner {
+	background-color: #fff !important;
+	border: 1px solid #ddd !important;
+	padding: 0 !important;
+	margin-bottom: 30px;
+}
+#column-left .navbar .nav > li > a, #column-right .navbar .nav > li > a {
+	color: #333 !important;
+}
+#column-left .navbar .nav > li > a:hover, #column-right .navbar .nav > li > a:hover {
+	color: #fff !important;
+}
+#column-left .navbar .nav > li > .dropdown-menu:before {
+	border-top: 7px solid transparent;
+	border-bottom: 7px solid transparent;
+	border-left: 7px solid #ccc;
+	border-left-color: rgba(0, 0, 0, 0.2);
+	top: 23px;
+	right: -14px;
+	display: none;
+}
+#column-right .navbar .nav > li > .dropdown-menu:before {
+	border-top: 7px solid transparent;
+	border-bottom: 7px solid transparent;
+	border-right: 7px solid #ccc;
+	border-right-color: rgba(0, 0, 0, 0.2);
+	top: 23px;
+	left: -14px;
+	right: inherit;
+	border-left: none;
+	border-left-color: transparent;
+}
+#column-left .navbar .nav > li > .dropdown-menu:after {
+	border-top: 6px solid transparent;
+	border-bottom: 6px solid transparent;
+	border-left: 6px solid #ffffff;
+	top: 24px;
+	right: -12px;
+	left: 100%;
+	border-right: none;
+}
+#column-right .navbar .nav > li > .dropdown-menu:after {
+	border-top: 6px solid transparent;
+	border-bottom: 6px solid transparent;
+	border-right: 6px solid #ffffff;
+	top: 24px;
+	left: -6px;
+	right: inherit;
+	border-left: none;
+}
+#column-left .navbar .nav li.dropdown > a:hover .caret, .navbar .nav li.dropdown > a:focus .caret, #column-right .navbar .nav li.dropdown > a:hover .caret, .navbar .nav li.dropdown > a:focus .caret {
+	border-top-color: #eee;
+	border-bottom-color: #eee;
+}
+#column-left .navbar .nav .dropdown-toggle .caret, #column-right .navbar .nav .dropdown-toggle .caret {
+	left: 15px !important;
+	bottom: 24px !important;
+}
+#column-left .caret, #column-right .caret {
+	display: none
+}
+#column-left .headForCols, #column-right .headForCols {
+	display: block;
+}
+

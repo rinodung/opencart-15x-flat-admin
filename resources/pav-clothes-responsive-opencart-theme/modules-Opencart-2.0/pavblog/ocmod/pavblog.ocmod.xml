@@ -1,0 +1,48 @@
+<modification>
+   <name><![CDATA[<font color="#0000"><b>Pav Blogs</font>]]></name>
+    <version><![CDATA[<b>1.0</b>]]></version>
+    <author><![CDATA[PavoThemes]]></author>
+    <link><![CDATA[http://www.pavothemes.com]]></link>
+    <code>PAVOBLOGS</code>    	             
+
+	<file path="admin/controller/common/menu.php">
+		<operation>
+			<search position="replace">
+				 <![CDATA[ $this->load->language('common/menu');  ]]>
+			</search>
+			<add>
+			 <![CDATA[
+			 	  $this->load->language('common/menu');
+			 	  $data['blog_category_link'] = $this->url->link('module/pavblog/category', 'token=' . $this->session->data['token'], 'SSL');
+			 	  $data['blog_blogs_link'] = $this->url->link('module/pavblog/blogs', 'token=' . $this->session->data['token'], 'SSL');
+			 	  $data['blog_addblog_link'] = $this->url->link('module/pavblog/blog', 'token=' . $this->session->data['token'], 'SSL');
+			 	  $data['blog_frontmodules_link'] = $this->url->link('module/pavblog/frontmodules', 'token=' . $this->session->data['token'], 'SSL');
+			 	  $data['blog_generalsetting_link'] = $this->url->link('module/pavblog/modules', 'token=' . $this->session->data['token'], 'SSL');
+			  ]]>
+			</add>	
+		</operation>		
+	</file>		
+	<file path="admin/view/template/common/menu.tpl">
+		<operation>
+			<search position="replace">
+				 <![CDATA[ <li id="sale"> ]]>
+			</search>
+			<add>
+			 <![CDATA[
+			 	  <li><a class="parent">
+			 	  	
+			 	  		<i class="fa fa-rocket fa-fw"></i> <span><?php echo 'Blogs Management'; ?></span></a>
+			 	  		<ul>
+			 	  			<li><a href="<?php echo $blog_category_link; ?>">Categories</a></li>
+			 	  			<li><a href="<?php echo $blog_blogs_link; ?>">Blogs</a></li>
+			 	  			<li><a href="<?php echo $blog_addblog_link; ?>">Add Blog</a></li>
+			 	  			<li><a href="<?php echo $blog_frontmodules_link; ?>">FrontEnd Modules</a></li>
+			 	  			<li><a href="<?php echo $blog_generalsetting_link; ?>">General Setting</a></li>
+			 	  		</ul>	
+			 	  </li>	
+				  <li id="sale">
+			  ]]>
+			</add>	
+		</operation>		
+	</file>					
+</modification>

@@ -1,0 +1,103 @@
+ul.nav li.dropdown:hover ul.dropdown-menu{
+    display: block;    
+}
+.megamenu .menu-icon{
+	background-position:center center;
+	padding-left:23px;
+	display:block;
+}
+	.megamenu .menu-title{
+		display:block
+	}	
+	.megamenu .menu-desc{
+		display:block;
+		font-size:11px
+	}
+.megamenu  .menu-content{
+	padding:9px
+}
+
+.megamenu .caret{
+	position:absolute;
+	top:30%;
+	right:1px;
+}
+.megamenu .level1 .caret{
+	display:none;
+}
+
+
+.megamenu ul{
+	margin:0;
+	padding:0
+}
+.megamenu ul li{
+	list-style:none;
+}
+.dropdown-submenu > a:after {
+ 
+    margin-right: -10px;
+    margin-top: -22px;
+}
+.megamenu .mega-col{
+
+}
+.megamenu .cols1{
+
+}
+.megamenu .cols2{
+	min-width:400px;
+}
+.megamenu .cols3{
+	min-width:600px;
+}
+.fullwidth {
+
+}
+.megacols-addition .dropdown-menu-inner{
+	padding:12px
+}
+.megamenu .mega-group  > a .menu-title {
+	font-weight:bold;
+	text-decoration:uppercase;
+}
+
+
+.widget-product-list .image{
+	float: left;
+	margin-right: 10px;
+  border: 1px solid #e7e7e7;
+}
+.widget-banner {
+   border: 1px solid #e7e7e7;
+}
+.widget-banner .w-banner{
+ margin: 6px 10px; 
+	float: left;
+} 
+.pavo-widget .menu-title{
+    font-size: 15px;
+    text-transform: uppercase;
+    padding-bottom: 15px;
+}
+.w-product {
+   margin-bottom: 15px;
+}
+
+.w-product:last-child {
+   margin-bottom: 0;
+}
+.widget-product-list .name a {
+  font-size:  13px;
+  font-weight: bold;
+
+}
+.widget-product-list .price {
+  font-size:  15px;
+   color: #C83A3A;
+}
+.widget-product-list .price-old {
+  text-decoration: line-through;
+  color: #292929;
+   font-size: 12px;
+}

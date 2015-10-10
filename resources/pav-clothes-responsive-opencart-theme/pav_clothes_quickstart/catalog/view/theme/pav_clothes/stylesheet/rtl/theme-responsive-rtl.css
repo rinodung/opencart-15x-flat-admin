@@ -1,0 +1,11 @@
+/* Iphone 4 landscape */
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+  #cart .content {
+    min-height: 250px;
+  }
+  #mainmenutop .navbar-toggle {
+    float: right;
+    margin-left: 15px;
+    margin-right: 0;
+  }
+}

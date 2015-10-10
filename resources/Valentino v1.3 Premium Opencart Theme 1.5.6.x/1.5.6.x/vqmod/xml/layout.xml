@@ -1,0 +1,454 @@
+<modification>
+    <id>Layout All Pages</id>
+    <version>1.0.0</version>
+    <vqmver>2.3.0</vqmver>
+    <author>Venza Studio</author>
+    <file path="/catalog/view/theme/valentino/template/account/"  name="account.tpl,address_form.tpl,address_list.tpl,download.tpl,edit.tpl,forgotten.tpl,login.tpl,newsletter.tpl,order_info.tpl,order_list.tpl,password.tpl,recurring_info.tpl,recurring_list.tpl,register.tpl,return_form.tpl,return_info.tpl,return_list.tpl,reward.tpl,transaction.tpl,voucher.tpl,wishlist.tpl">
+        <operation>
+            <search position="before">
+                <![CDATA[
+                <div id="content">
+                ]]>
+            </search>
+            <add>
+                <![CDATA[
+               <?php 
+					$spanClass="span9";
+					if( strlen(trim($column_left)) > 0  && strlen(trim($column_right)) > 0 ){
+						$spanClass="span6";
+					}else if(strlen(trim($column_left)) > 0  || strlen(trim($column_right)) > 0 ){
+						$spanClass="span9";
+					}else if(strlen(trim($column_left))== 0 && strlen(trim($column_right))== 0){
+						$spanClass="span12";
+					}else{
+						$spanClass="span6";
+					}
+				?>
+				<div class="<?php echo $spanClass;?>">
+                ]]>
+            </add>
+        </operation>
+        <operation>
+            <search position="after">
+                <![CDATA[
+                <?php echo $content_bottom; ?></div>
+                ]]>
+            </search>
+            <add>
+                <![CDATA[
+                </div>
+                ]]>
+            </add>
+        </operation>
+    </file>
+
+    
+    <file path="/catalog/view/theme/valentino/template/affiliate/"  name="account.tpl,edit.tpl,forgotten.tpl,login.tpl,password.tpl,payment.tpl,register.tpl,tracking.tpl,transaction.tpl">
+        <operation>
+            <search position="before">
+                <![CDATA[
+                <div id="content">
+                ]]>
+            </search>
+            <add>
+                <![CDATA[
+               <?php 
+					$spanClass="span9";
+					if( strlen(trim($column_left)) > 0  && strlen(trim($column_right)) > 0 ){
+						$spanClass="span6";
+					}else if(strlen(trim($column_left)) > 0  || strlen(trim($column_right)) > 0 ){
+						$spanClass="span9";
+					}else if(strlen(trim($column_left))== 0 && strlen(trim($column_right))== 0){
+						$spanClass="span12";
+					}else{
+						$spanClass="span6";
+					}
+				?>
+				<div class="<?php echo $spanClass;?>">
+                ]]>
+            </add>
+        </operation>
+        <operation>
+            <search position="after">
+                <![CDATA[
+                <?php echo $content_bottom; ?></div>
+                ]]>
+            </search>
+            <add>
+                <![CDATA[
+                </div>
+                ]]>
+            </add>
+        </operation>
+    </file>
+
+
+    <file path="/catalog/view/theme/valentino/template/checkout/"  name="cart.tpl,checkout.tpl,confirm.tpl,guest.tpl,guest_shipping.tpl,login.tpl,register.tpl,payment_address.tpl,payment_method.tpl,shipping_address.tpl,shipping_method.tpl">
+        <operation>
+            <search position="before">
+                <![CDATA[
+                <div id="content">
+                ]]>
+            </search>
+            <add>
+                <![CDATA[
+               <?php 
+					$spanClass="span9";
+					if( strlen(trim($column_left)) > 0  && strlen(trim($column_right)) > 0 ){
+						$spanClass="span6";
+					}else if(strlen(trim($column_left)) > 0  || strlen(trim($column_right)) > 0 ){
+						$spanClass="span9";
+					}else if(strlen(trim($column_left))== 0 && strlen(trim($column_right))== 0){
+						$spanClass="span12";
+					}else{
+						$spanClass="span6";
+					}
+				?>
+				<div class="<?php echo $spanClass;?>">
+                ]]>
+            </add>
+        </operation>
+        <operation>
+            <search position="after">
+                <![CDATA[
+                <?php echo $content_bottom; ?></div>
+                ]]>
+            </search>
+            <add>
+                <![CDATA[
+                </div>
+                ]]>
+            </add>
+        </operation>
+    </file>
+
+    
+    <file path="/catalog/view/theme/valentino/template/common/"  name="home.tpl,success.tpl">
+        <operation>
+            <search position="before">
+                <![CDATA[
+                <div id="content">
+                ]]>
+            </search>
+            <add>
+                <![CDATA[
+               <?php 
+					$spanClass="span9";
+					if( strlen(trim($column_left)) > 0  && strlen(trim($column_right)) > 0 ){
+						$spanClass="span6";
+					}else if(strlen(trim($column_left)) > 0  || strlen(trim($column_right)) > 0 ){
+						$spanClass="span9";
+					}else if(strlen(trim($column_left))== 0 && strlen(trim($column_right))== 0){
+						$spanClass="span12";
+					}else{
+						$spanClass="span6";
+					}
+				?>
+				<div class="<?php echo $spanClass;?>">
+                ]]>
+            </add>
+        </operation>
+        <operation>
+            <search position="after">
+                <![CDATA[
+                <?php echo $content_bottom; ?></div>
+                ]]>
+            </search>
+            <add>
+                <![CDATA[
+                </div>
+                ]]>
+            </add>
+        </operation>
+    </file>
+
+    
+    <file path="/catalog/view/theme/valentino/template/error/"  name="not_found.tpl">
+        <operation>
+            <search position="before">
+                <![CDATA[
+                <div id="content">
+                ]]>
+            </search>
+            <add>
+                <![CDATA[
+               <?php 
+					$spanClass="span9";
+					if( strlen(trim($column_left)) > 0  && strlen(trim($column_right)) > 0 ){
+						$spanClass="span6";
+					}else if(strlen(trim($column_left)) > 0  || strlen(trim($column_right)) > 0 ){
+						$spanClass="span9";
+					}else if(strlen(trim($column_left))== 0 && strlen(trim($column_right))== 0){
+						$spanClass="span12";
+					}else{
+						$spanClass="span6";
+					}
+				?>
+				<div class="<?php echo $spanClass;?>">
+                ]]>
+            </add>
+        </operation>
+        <operation>
+            <search position="after">
+                <![CDATA[
+                <?php echo $content_bottom; ?></div>
+                ]]>
+            </search>
+            <add>
+                <![CDATA[
+                </div>
+                ]]>
+            </add>
+        </operation>
+    </file>
+
+    
+    <file path="/catalog/view/theme/valentino/template/information/"  name="contact.tpl,information.tpl,sitemap.tpl">
+        <operation>
+            <search position="before">
+                <![CDATA[
+                <div id="content">
+                ]]>
+            </search>
+            <add>
+                <![CDATA[
+               <?php 
+					$spanClass="span9";
+					if( strlen(trim($column_left)) > 0  && strlen(trim($column_right)) > 0 ){
+						$spanClass="span6";
+					}else if(strlen(trim($column_left)) > 0  || strlen(trim($column_right)) > 0 ){
+						$spanClass="span9";
+					}else if(strlen(trim($column_left))== 0 && strlen(trim($column_right))== 0){
+						$spanClass="span12";
+					}else{
+						$spanClass="span6";
+					}
+				?>
+				<div class="<?php echo $spanClass;?>">
+                ]]>
+            </add>
+        </operation>
+        <operation>
+            <search position="after">
+                <![CDATA[
+                <?php echo $content_bottom; ?></div>
+                ]]>
+            </search>
+            <add>
+                <![CDATA[
+                </div>
+                ]]>
+            </add>
+        </operation>
+    </file>
+
+    
+    <file path="/catalog/view/theme/valentino/template/pavblog/"  name="blog.tpl,blogs.tpl,category.tpl">
+        <operation>
+            <search position="before">
+                <![CDATA[
+                <div id="content">
+                ]]>
+            </search>
+            <add>
+                <![CDATA[
+               <?php 
+					$spanClass="span9";
+					if( strlen(trim($column_left)) > 0  && strlen(trim($column_right)) > 0 ){
+						$spanClass="span6";
+					}else if(strlen(trim($column_left)) > 0  || strlen(trim($column_right)) > 0 ){
+						$spanClass="span9";
+					}else if(strlen(trim($column_left))== 0 && strlen(trim($column_right))== 0){
+						$spanClass="span12";
+					}else{
+						$spanClass="span6";
+					}
+				?>
+				<div class="<?php echo $spanClass;?>">
+                ]]>
+            </add>
+        </operation>
+        <operation>
+            <search position="after">
+                <![CDATA[
+                <?php echo $content_bottom; ?></div>
+                ]]>
+            </search>
+            <add>
+                <![CDATA[
+                </div>
+                ]]>
+            </add>
+        </operation>
+    </file>
+
+    
+    <file path="/catalog/view/theme/valentino/template/product/"  name="category.tpl,compare.tpl,manufacturer_info.tpl,manufacturer_list.tpl,product.tpl,search.tpl,special.tpl">
+        <operation>
+            <search position="before">
+                <![CDATA[
+                <div id="content">
+                ]]>
+            </search>
+            <add>
+                <![CDATA[
+               <?php 
+					$spanClass="span9";
+					if( strlen(trim($column_left)) > 0  && strlen(trim($column_right)) > 0 ){
+						$spanClass="span6";
+					}else if(strlen(trim($column_left)) > 0  || strlen(trim($column_right)) > 0 ){
+						$spanClass="span9";
+					}else if(strlen(trim($column_left))== 0 && strlen(trim($column_right))== 0){
+						$spanClass="span12";
+					}else{
+						$spanClass="span6";
+					}
+				?>
+				<div class="<?php echo $spanClass;?>">
+                ]]>
+            </add>
+        </operation>
+        <operation>
+            <search position="after">
+                <![CDATA[
+                <?php echo $content_bottom; ?></div>
+                ]]>
+            </search>
+            <add>
+                <![CDATA[
+                </div>
+                ]]>
+            </add>
+        </operation>
+    </file>    
+    
+    
+    
+
+    <file path="/catalog/view/theme/valentino/template/account/"  name="account.tpl,address_form.tpl,address_list.tpl,download.tpl,edit.tpl,forgotten.tpl,login.tpl,newsletter.tpl,order_info.tpl,order_list.tpl,password.tpl,recurring_info.tpl,recurring_list.tpl,register.tpl,return_form.tpl,return_info.tpl,return_list.tpl,reward.tpl,transaction.tpl,voucher.tpl,wishlist.tpl">
+        <operation>
+            <search position="before">
+                <![CDATA[
+                <?php echo $column_left; ?><?php echo $column_right; ?>
+                ]]>
+            </search>
+            <add>
+                <![CDATA[
+               <div class="container"><div class="row">	
+                ]]>
+            </add>
+        </operation>
+        
+    </file>
+
+    <file path="/catalog/view/theme/valentino/template/affiliate/"  name="account.tpl,edit.tpl,forgotten.tpl,login.tpl,password.tpl,payment.tpl,register.tpl,tracking.tpl,transaction.tpl">
+        <operation>
+            <search position="before">
+                <![CDATA[
+                <?php echo $column_left; ?><?php echo $column_right; ?>
+                ]]>
+            </search>
+            <add>
+                <![CDATA[
+               <div class="container"><div class="row">	
+                ]]>
+            </add>
+        </operation>
+        
+    </file>
+
+    <file path="/catalog/view/theme/valentino/template/checkout/"  name="cart.tpl,checkout.tpl,confirm.tpl,guest.tpl,guest_shipping.tpl,login.tpl,register.tpl,payment_address.tpl,payment_method.tpl,shipping_address.tpl,shipping_method.tpl">
+        <operation>
+            <search position="before">
+                <![CDATA[
+                <?php echo $column_left; ?><?php echo $column_right; ?>
+                ]]>
+            </search>
+            <add>
+                <![CDATA[
+               <div class="container"><div class="row">	
+                ]]>
+            </add>
+        </operation>
+        
+    </file>
+
+    <file path="/catalog/view/theme/valentino/template/common/"  name="home.tpl,success.tpl">
+        <operation>
+            <search position="before">
+                <![CDATA[
+                <?php echo $column_left; ?><?php echo $column_right; ?>
+                ]]>
+            </search>
+            <add>
+                <![CDATA[
+               <div class="container"><div class="row">	
+                ]]>
+            </add>
+        </operation>
+        
+    </file>
+
+    <file path="/catalog/view/theme/valentino/template/error/"  name="not_found.tpl">
+        <operation>
+            <search position="before">
+                <![CDATA[
+                <?php echo $column_left; ?><?php echo $column_right; ?>
+                ]]>
+            </search>
+            <add>
+                <![CDATA[
+               <div class="container"><div class="row">	
+                ]]>
+            </add>
+        </operation>
+        
+    </file>
+
+    <file path="/catalog/view/theme/valentino/template/information/"  name="contact.tpl,information.tpl,sitemap.tpl">
+        <operation>
+            <search position="before">
+                <![CDATA[
+                <?php echo $column_left; ?><?php echo $column_right; ?>
+                ]]>
+            </search>
+            <add>
+                <![CDATA[
+               <div class="container"><div class="row">	
+                ]]>
+            </add>
+        </operation>
+        
+    </file>
+
+    <file path="/catalog/view/theme/valentino/template/pavblog/"  name="blog.tpl,blogs.tpl,category.tpl">
+        <operation>
+            <search position="before">
+                <![CDATA[
+                <?php echo $column_left; ?><?php echo $column_right; ?>
+                ]]>
+            </search>
+            <add>
+                <![CDATA[
+               <div class="container"><div class="row">	
+                ]]>
+            </add>
+        </operation>
+        
+    </file>
+
+    <file path="/catalog/view/theme/valentino/template/product/"  name="category.tpl,compare.tpl,manufacturer_info.tpl,manufacturer_list.tpl,product.tpl,search.tpl,special.tpl">
+        <operation>
+            <search position="before">
+                <![CDATA[
+                <?php echo $column_left; ?><?php echo $column_right; ?>
+                ]]>
+            </search>
+            <add>
+                <![CDATA[
+               <div class="container"><div class="row">	
+                ]]>
+            </add>
+        </operation>
+    </file>          
+</modification>

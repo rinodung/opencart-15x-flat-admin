@@ -1,0 +1,215 @@
+/******************************************************
+ * @package Pav Opencart Theme Framework for Opencart 1.5.x
+ * @version 1.1
+ * @author http://www.pavothemes.com
+ * @copyright	Copyright (C) Augus 2013 PavoThemes.com <@emai:pavothemes@gmail.com>.All rights reserved.
+ * @license		GNU General Public License version 2
+*******************************************************/
+// Center-align a block level element
+ 
+
+/* box */
+.box {
+    margin-bottom: @box-module-margin;
+    &.highlighted{
+        .box-heading{
+            padding: 8px 15px 8px 0;
+            background: @gray-lighter;            
+            span{
+                background:@box-module-heading-bg;
+                padding: 9px 30px 9px 10px;
+                position: relative;
+                &:after{
+                    border-bottom: 20px solid transparent;
+                    border-right: 13px solid @gray-lighter;
+                    border-top: 20px solid transparent;
+                    content: "";
+                    right: 0;
+                    position: absolute;
+                    top: 0;
+                }
+
+            }
+
+            
+        }
+    }
+    .box-heading {
+        padding: @box-module-heading-padding;
+        font-family: @box-module-heading-font;
+        font-size: @box-module-heading-fontsize;
+        text-transform: uppercase;
+        position: relative;
+        background:@box-module-heading-bg;
+        color: @white;
+        font-weight: @headings-font-weight;
+    }
+    &.nobackground{
+        .box-heading{
+            background: none;
+            color: @theme-color-default !important;
+            padding:0 0 20px 0;
+            font-size: @box-module-heading-fontsize + 5;
+            font-weight: 400;
+        }
+    }
+     .box-content {
+
+     }
+       &.orange {
+            .box-heading{
+                background:lighten(@orange, 15%);
+            }
+            .box-content{ 
+                background:@orange;
+            } 
+            li{
+                border-top-color: lighten(@orange, 15%);
+            }
+            a{
+             color:#B66B00;
+                 
+            &:hover{
+                   color:#6F4100;
+                   }
+            }
+        }
+        
+        &.dark {
+            .box-heading{
+                background-color: #292929;
+                border-bottom: 1px solid #3f3f3f;
+                position:  relative;
+                 &:before {
+                    content: "";
+                    background: url('@{theme-image-path}bg-tite.png') no-repeat ;
+                    position: absolute;
+                    top:39px;
+                    left: 30px;
+                    width: 35px;
+                    height: 11px;
+                 }
+            }
+            .box-content{ 
+                background-color: #2e2e2e;
+            } 
+            ul li{
+                border-bottom: 1px solid #343434;                
+                a{
+                    color: #fff;
+                    background: none;  
+                    text-transform: none;
+                    padding-left: 0;
+                    &:hover{
+                        color: @theme-color-hover;
+                    }
+            }
+                
+            }
+        }
+        &.green {
+            background:@green;
+            a{
+             color:#63E063;
+                 
+            &:hover{
+                   color:#43F043;
+                   }
+            }
+        }
+        &.maroon {
+            background:#F35D34;
+            a{
+             color:#B4300D;
+                 
+            &:hover{
+                   color:#C93F19;
+                   }
+            }
+        }
+        &.blue {
+            background:@blue;
+            a{
+             color:#47C9FF;
+                 
+            &:hover{
+                   color:#0073A3;
+                   }
+            }
+        }
+        &.gray {
+            background:@gray;
+            a{
+             color:#999;
+                 
+            &:hover{
+                   color:#777;
+                   }
+            }
+        }
+        &.pink {
+            background:@pink;
+            a{
+             color:@white;
+                 
+            &:hover{
+                color:@green;
+               }
+            }
+        }
+        &.red {
+            background:@red;
+            a{
+             color:#EE4538;
+                 
+            &:hover{
+                   color:#DA3F33;
+                }
+            }
+        }
+        
+}
+
+.sidebar {
+    margin-top: 50px;
+    .box {
+        &.highlight{
+            .box-heading {
+                background:@pink;
+                border:  none;
+                margin-bottom:  0;
+                span i{
+                    padding-right: @product-padding;                    
+                }
+            }
+        }
+        .box-content {
+        }
+        .box-heading {
+            padding: @box-module-heading-padding;
+            font-family: @box-module-heading-font;
+            font-size: @box-module-heading-fontsize;
+            text-transform: uppercase;
+            position: relative;
+            background:@box-module-heading-bg;
+            color: @white;
+            font-weight: @headings-font-weight;
+        }
+        /* box styles */
+       
+        &.nopadding {
+            .box-content{
+                padding-right: 0;
+                padding-left: 0;
+                padding-bottom: 0;
+            }
+            ul li {
+
+                &:last-child {
+                    border-bottom: none;
+                }
+            }
+        }
+        
+    }
+}

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<theme>
+	<footer>
+		 <title>Footer Block</title>
+		 <description></description>
+	 	 <module>
+	 	 	<title>Contact Us</title>
+	 	 	<field>
+	 	 		<name>widget_contact_us</name>
+	 	 		<label>Contact Us</label>
+	 	 		<type>textarea</type>
+	 	 		<lang>1</lang>
+	 	 		<default> <![CDATA[
+					<ul class="pav-contact-us clearfix">
+						<li><i class="icon fa fa-home">&nbsp;</i>
+						<div class="l-text">BrainOs Solution Company<br>
+						Limited</div>
+						</li>
+						<li><i class="icon fa fa-phone">&nbsp;</i> + 084 123 678 999<br>
+						+ 084 987 123 654</li>
+						<li><i class="icon fa fa-envelope-o">&nbsp;</i> Email: info@brainos.vn</li>
+					</ul>
+	 	 		 ]]> </default>		
+	 		</field>
+	 	 </module>	
+	 	 <module>
+	 	 	<title>Paypal</title>
+	 	 	<field>
+	 	 		<name>widget_paypal</name>
+	 	 		<label>Paypal</label>
+	 	 		<type>textarea</type>
+	 	 		<lang>1</lang>
+	 	 		<default> <![CDATA[
+					<p><img src="image/catalog/paypal.png" alt="" /></p>
+	 	 		 ]]> </default>		
+	 		</field>
+	 	 </module>
+
+
+	</footer>	
+	
+</theme>
+

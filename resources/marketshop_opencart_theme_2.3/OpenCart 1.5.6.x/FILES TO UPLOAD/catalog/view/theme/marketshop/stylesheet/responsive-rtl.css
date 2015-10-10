@@ -1,0 +1,50 @@
+@media screen and (max-width:991px) {
+#header.style2 #logo, #header #logo{float:none;}
+span.submore{right:auto; left:0;}
+#header.style2 #cart .heading{text-align:center;}
+#header.style2 #cart .content {right:50%; margin-right:-175px;}
+
+#header.style3 .col-sm-push-6{right:auto;}
+#header.style3 .col-sm-pull-6{left:auto;}
+#header.style3 #cart .heading{text-align:right;}
+
+.drop-icon{float:right;}
+#header .links {border: medium none; float: none;}
+#menu .nav{text-align:right;}
+#menu .nav > li, #menu .nav > li.custom-link-right{float:none;}
+span.submore:after{right:auto; left:0;}
+#menu > ul > li.categories > div > .column > div{right:auto;}
+#menu > ul > li.categories_hor > div .submenu, .submenu{right:auto;}
+.category .tabs{right:5px; left:auto;}
+
+.product-info > .left + .right{margin-right:auto;}
+.product-info .image{float:none;}
+.product-info > .left{float:none; margin-left:0px;}
+#menu > span{padding:0 8px 0 15px;}
+#menu > span:before, #menu > span:after{left:0; right:auto;}
+.sitemap li ul{margin-left:0px; margin-right:30px;}
+}
+@media (max-width: 767px) {
+#header #cart .heading, #header.style3 #cart .heading{text-align:center;}
+#header #cart .content{right:50%; margin-right:-175px;}
+#footer .column, #footer .contact{float:none;}
+.left-top #language, #currency{display:block;}
+
+#header #cart, #header #search, #header.style2 #cart, #header.style3 #search, #footer .powered_text, #footer .social, #footer .social a{float:none;}
+
+.product-filter .limit, .product-filter .sort{float:right;}
+.product-compare{border-left:none;}
+
+.product-list .image, .product-list .cart, .product-list .wishlist, .product-list .compare, .product-info > .left, .product-info .image-additional a{float:none;}
+.product-list .image{margin-left:0;}
+.product-info > .left + .right{margin-right:0px;}
+.category-list ul { float: none; width:auto; margin-left:0px;}
+.product-tab .tabs li{margin-left:15px;}
+.box.category .box-heading{text-align:right;}
+}
+
+@media screen and (max-width:320px) {
+#header #cart .content, #header.style2 #cart .content{margin-right:-125px; width:250px;}
+.product-info .cart div{float:none;}
+.product-info .cart div .wishlist{margin:0 0 0 15px;}
+}

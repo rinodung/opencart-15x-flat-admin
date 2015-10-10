@@ -1,0 +1,11 @@
+.newsletter-submit .description{
+	margin-top: 30px;
+}
+
+.newlestter-message {
+     position: absolute;
+     left: 0;
+    top: 100%;
+    width: 100%;
+    z-index: 9999;
+    }

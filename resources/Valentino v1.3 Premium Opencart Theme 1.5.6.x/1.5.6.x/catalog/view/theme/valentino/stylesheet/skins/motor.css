@@ -1,0 +1,110 @@
+body {
+	background-color: #f0f0f0;
+	background-image: url(../../image/bg-motor.jpg);
+	background-attachment: fixed;
+	background-position: top center;
+	background-repeat: no-repeat;
+}
+p {
+	color: #000;
+}
+.head5 {
+	background: #fff;
+}
+h1, h2, h3, h4, h5, h6 {
+	color: #ff0c51
+}
+.box .box-heading, .headForCols {
+	background: #ff0c51;
+	border: 1px solid #ff0c51;
+	color: #fff;
+}
+.box .box-heading a {
+	color: #fff;
+}
+.nav-tabs > li + li {
+	border-left: 1px solid #fff;
+}
+.nav-tabs > li.active a {
+	color: #333;
+}
+.topBar {
+	background: transparent;
+}
+#logo {
+	background: #000 !important
+}
+#logo img {
+	margin: 15px auto 25px;
+}
+header {
+	background: #ff0c51;
+}
+
+#search {
+	background: #ff0c51 !important;
+	border: 1px solid #ff0c51;
+}
+#livesearch_search_results {
+	background: #ff0c51
+}
+.cartImgWrap {
+	background: #ff0c51;
+}
+#currency, .topBar .links, .topBar #welcome a, .topBar #welcome, #language, .topBar #cart .heading, .head5 #cart .heading, .topBar #cart .heading a, .head5 #cart .heading a {
+	color: #fff
+}
+.navbar .nav > li > a:hover {
+	background-color: #ff0c51;
+}
+.megamenu .menu-desc {
+	color: #000;
+}
+a .dcjq-icon {
+	background: #ff0c51 url(../../image/plus.png) no-repeat center center;
+}
+a.dcjq-parent.active .dcjq-icon {
+	background: #ff0c51 url(../../image/minus.png) no-repeat center center;
+}
+.cartBtn, a.cartBtn, input.cartBtn, button.cartBtn {
+	background: #000;
+}
+input.wish, a.wish {
+	background: #ff0c51 url(../../image/wish-btn.png) no-repeat center;
+}
+input.compare, a.compare {
+	background: #ff0c51 url(../../image/compare-btn.png) no-repeat center;
+}
+.addToCart, a.newsBtn {
+	background: #ff0c51
+}
+.newsletterWrap h2 {
+	color: #ff0c51
+}
+.latestBlogHeading, .brandHeading {
+	background: #ff0c51 !important;
+	border: 1px solid #ff0c51 !important
+}
+.singleProduct, .product-grid > div.ifList {
+	background: #eee;
+}
+.itemBrandWrap {
+	background: #000;
+	border-top: 1px solid #333;
+	border-bottom: 1px solid #333;
+}
+.itemBrandWrap .span2 {
+	width: 168px;
+	border-right: 1px solid #333;
+	border-left: 1px solid #333;
+	border-top: 1px solid #333;
+}
+footer, .bottomFooter {
+	background: #000
+}
+footer p {
+	color: #ccc;
+}
+.blog-item-latest, #column-left .conBg .box-content, #column-right .conBg .box-content, .product-info > .right {
+	background: #eee
+}

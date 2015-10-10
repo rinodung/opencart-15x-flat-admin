@@ -1,0 +1,174 @@
+//
+// Variables
+// --------------------------------------------------
+@theme-image-path : '../../image/'; 
+@image-theme-path-base:'../../image/';
+
+@theme-image-path : '../../image/default/';
+
+ 
+// themes colors
+// -------------------------
+@blue:                  #049cdb;
+@blueDark:              #0064cd;
+@green:                 #1bbc9b;
+@green-light:           #1cab8e;
+@green-lighter:         #2fc6a6;
+@red:                   #9d261d;
+@yellow:                #ffc40d;
+@orange:                #ed6242;
+@pink:                  #cc3366;
+@pink-light:            #fa565a;
+@pink-lighter:          #f04162;
+@purple:                #7a43b6;
+@white :			 	#FFFFFF;
+@black :				#000000;
+ 
+
+@theme-color-default   : @gray-dark; // using for default color of all pages such as background color for top menu, block header
+@theme-color-primary   : @gray-lighter; // for hightligh block header, button as default it is  color
+@theme-color-secondary : @green ; 
+@theme-color-third     : @green-light;
+@theme-color-four      : @green-lighter;
+
+
+@theme-color 			: @theme-color-default;
+@theme-color-hover      : @green;
+
+@theme-padding           : @line-height-computed - 10;
+@theme-margin            : @line-height-computed - 2;
+/**
+ * Heading Page
+ */
+@heading-border            :  2px solid @theme-color-primary;
+@heading-hightlight-border :  2px solid @theme-color-default;
+/* 
+ * product block
+ */
+@product-margin                     : @theme-margin - 8;
+@product-padding                    : @theme-padding + 3;
+@product-lineheight                 : 23px;
+@product-height                     : 40px;
+@product-link-color  		        : @link-color; 
+@product-link-color-hover		    : @theme-color-hover; 
+@product-name-font-size		        : @font-size-base;
+@product-name-color  		        : @link-color;
+@product-price-old-color 			: @gray;
+@product-price-color				: @pink-light;
+@product-price-tax                  : #bbb;
+@product-action-link-color          : @white;
+@product-action-bg  		        : @gray-darker;
+@product-action-hover-bg 	        : @theme-color-secondary;
+@product-boder-color                : @btn-wrap-border;
+@product-label-special-color        : @red;
+
+/* product info */
+
+@product-info-border-color          : @product-boder-color;
+@product-info-background            : @pink-light;
+@product-info-margin                : @product-margin;
+@product-info-padding               : @product-padding;
+@product-info-color                 : @gray;
+@product-info-price-color           : @pink-light;
+@product-info-price-old-color 		: @gray;
+@product-info-action-bg  		    : @theme-color-secondary;
+@product-info-action-hover-bg 	    : @gray-darker;
+@product-info-link-color  		    : @white;
+
+
+
+/* product filter */
+
+@product-filter-border-color          : @product-boder-color;
+@product-filter-background            : @white;
+@product-filter-margin                : @product-margin;
+@product-filter-padding               : @product-padding;
+@product-filter-color                 : @gray;
+@product-filter-price-color           : @pink;
+@product-filter-price-old-color 	  : @gray;
+@product-filter-action-bg  		      : @theme-color-secondary;
+@product-filter-action-hover-bg 	  : @gray-darker;
+@product-filter-link-color  		  : @white;
+@product-filter-link-color-hover      : @gray-dark;
+@product-filter-lineheight            : @product-lineheight;
+
+
+/* buttons */
+@btn-wrap-border:   #e5e5e5 ;
+@btn-wrap-bg    : @white; 
+
+/* 
+ * htab module 
+ */
+@htab-border-color 	     : @nav-tabs-border-color; 
+@htab-border 		     : @nav-tabs-border-color; 
+@htab-nav-padding	     : 15px 25px;
+@htab-nav-color		     : @brand-primary;
+@htab-bg    		     : @white;
+@htab-bg-selected     	 : @theme-color-secondary;
+@htab-nav-selected-color : @white;
+
+/* 
+ * Box Modules 
+ */
+@box-module-margin	         : @line-height-computed;
+@box-module-heading-padding  : 8px 18px;
+@box-module-heading-font     : @font-family-base;
+@box-module-heading-color    : @white;
+@box-module-heading-fontsize : @font-size-base + 2;
+@box-module-content-bg       : @white;
+@box-module-content-padding  : @theme-padding;
+@box-module-badge            : @theme-color;
+@box-module-heading-bg       : @theme-color-secondary;
+@box-module-heading-span-color:@brand-primary;
+
+ /* 
+  *Megamenu
+  */
+@menu-color                :#6a6a6a;
+@menu-color-hover          :@green;
+@menu-font-size            :@font-size-base;
+@megamenu-bg: #000; 
+@megamenu-bg-hover: @theme-color-third; 
+@megamenu-border-color:@theme-color-four;
+
+//Offcanvas
+@offcanvas-bg           : @theme-color-secondary;
+ /* 
+  *layout 
+  */
+ // topbar 
+@topbar-bg				: @gray-dark; 
+@topbar-color			: @gray-light;
+@topbar-font-size  		: @font-size-base - 2;
+@topbar-link-color      : @gray-light;
+@topbar-link-hover-color: @theme-color-hover;
+
+
+// footer position
+@footer-bg 				: @white;
+@footer-color 				: @white;
+@footer-heading-font-size  : @font-size-base;
+@footer-heading-color		: @footer-color;
+@footer-heading-boder-color: 2px solid transparent;
+@footer-link-color         : @footer-color;
+@footer-link-hover-color   : @theme-color-hover;
+@footer-padding            : @line-height-computed + 13;
+@footer-margin             : @line-height-computed + 13;
+//footer-top
+@footertop-bg 			   : #2f3942;
+//footer-center
+@footercenter-bg 		   : @gray-dark;
+@footercenter-bg-hover	   : @theme-color-hover;
+@footercenter-color        : #a1a5ab;
+@footercenter-heading-color: @white;
+@footercenter-link-boder-color:1px solid #45525f;
+@footercenter-font-size:@font-size-base;
+
+// powered by
+@power-bg              : #232a30;
+@power-text-color      : @footercenter-color;
+@power-link-color      : @theme-color-secondary;
+@power-link-color-hover: @white;
+@power-padding         : @footer-padding;
+@power-margin          : @footer-margin;

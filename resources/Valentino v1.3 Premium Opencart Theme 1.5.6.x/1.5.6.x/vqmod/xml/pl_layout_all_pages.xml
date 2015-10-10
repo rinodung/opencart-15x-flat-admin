@@ -1,0 +1,116 @@
+<modification>
+    <id>Layout All Pages</id>
+    <version>1.0.0</version>
+    <vqmver>2.3.0</vqmver>
+    <author>menryan@gmail.com</author>
+    <file name="/catalog/model/design/layout.php">
+        <operation>
+            <search position="before">
+                <![CDATA[
+                public function getLayout($route) {
+                ]]>
+            </search>
+            <add>
+                <![CDATA[
+                public function getLayoutForAllPages()
+                {
+                    $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "layout
+                        WHERE name like '%all pages%'
+                        LIMIT 1");
+
+                    if ($query->num_rows) {
+                        return $query->row['layout_id'];
+                    } else {
+                        return 0;
+                    }
+                }
+                ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="/catalog/controller/common/" name="column_left.php,column_right.php,content_top.php,content_bottom.php,mainmenu.php">
+        <operation>
+            <search position="before">
+                <![CDATA[
+                    $module_data = array();
+                ]]>
+            </search>
+            <add>
+                <![CDATA[
+                    $all_pages_layout_id = $this->model_design_layout->getLayoutForAllPages();
+                ]]>
+            </add>
+        </operation>
+    </file>
+    <file name="/catalog/controller/common/column_left.php">
+        <operation>
+            <search position="replace">
+                <![CDATA[
+                    if ($module['layout_id'] == $layout_id && $module['position'] == 'column_left' && $module['status']) {
+                ]]>
+            </search>
+            <add>
+                <![CDATA[
+                
+                    if (($module['layout_id'] == $layout_id || $module['layout_id'] == $all_pages_layout_id) && $module['position'] == 'column_left' && $module['status']) {
+                ]]>
+            </add>
+        </operation>
+    </file>
+    <file name="/catalog/controller/common/column_right.php">
+        <operation>
+            <search position="replace">
+                <![CDATA[
+                    if ($module['layout_id'] == $layout_id && $module['position'] == 'column_right' && $module['status']) {
+                ]]>
+            </search>
+            <add>
+                <![CDATA[
+                    if (($module['layout_id'] == $layout_id || $module['layout_id'] == $all_pages_layout_id) && $module['position'] == 'column_right' && $module['status']) {
+                ]]>
+            </add>
+        </operation>
+    </file>
+    <file name="/catalog/controller/common/content_top.php">
+        <operation>
+            <search position="replace">
+                <![CDATA[
+                    if ($module['layout_id'] == $layout_id && $module['position'] == 'content_top' && $module['status']) {
+                ]]>
+            </search>
+            <add>
+                <![CDATA[
+                    if (($module['layout_id'] == $layout_id || $module['layout_id'] == $all_pages_layout_id) && $module['position'] == 'content_top' && $module['status']) {
+                ]]>
+            </add>
+        </operation>
+    </file>
+    <file name="/catalog/controller/common/content_bottom.php">
+        <operation>
+            <search position="replace">
+                <![CDATA[
+                    if ($module['layout_id'] == $layout_id && $module['position'] == 'content_bottom' && $module['status']) {
+                ]]>
+            </search>
+            <add>
+                <![CDATA[
+                    if (($module['layout_id'] == $layout_id || $module['layout_id'] == $all_pages_layout_id) && $module['position'] == 'content_bottom' && $module['status']) {
+                ]]>
+            </add>
+        </operation>
+    </file>
+    <file name="/catalog/controller/common/mainmenu.php">
+        <operation>
+            <search position="replace">
+                <![CDATA[
+                    if ($module['layout_id'] == $layout_id && $module['position'] == 'mainmenu' && $module['status']) {
+                ]]>
+            </search>
+            <add>
+                <![CDATA[
+                    if (($module['layout_id'] == $layout_id || $module['layout_id'] == $all_pages_layout_id) && $module['position'] == 'mainmenu' && $module['status']) {
+                ]]>
+            </add>
+        </operation>
+    </file>
+</modification>

@@ -1,0 +1,133 @@
+
+/* customize for body */ 
+body { 
+background-color:#ccc9c8;
+background-image:url(../../image/pattern/pattern9.png) 
+} 
+
+/* customize for body #page */ 
+body #page { 
+background-color:#f2dcdc;
+background-image:url(../../image/pattern/pattern4.png) 
+} 
+
+/* customize for #topbar */ 
+#topbar { 
+background-color:#d426d4 
+} 
+
+/* customize for #topbar .wrapper div a */ 
+#topbar .wrapper div a { 
+color:#ffffff 
+} 
+
+/* customize for #topbar .wrapper div a:hover */ 
+#topbar .wrapper div a:hover { 
+color:#0b6e62 
+} 
+
+/* customize for #topbar .wrapper div */ 
+#topbar .wrapper div { 
+border-color:#b83535 
+} 
+
+/* customize for #header #cart .heading h4 */ 
+#header #cart .heading h4 { 
+background-color:#4d114d 
+} 
+
+/* customize for #header #cart .heading #cart-total */ 
+#header #cart .heading #cart-total { 
+background-color:#86ba1e 
+} 
+
+/* customize for #header */ 
+#header { 
+background-color:#361136 
+} 
+
+/* customize for #header input */ 
+#header input { 
+color:#000000;
+background-color:#c2a3c2 
+} 
+
+/* customize for #pav-mainnav */ 
+#pav-mainnav { 
+background-color:#e637e6 
+} 
+
+/* customize for #pav-mainnav .navbar ul.nav li a,#pav-mainnav .navbar ul.nav li:first-child a */ 
+#pav-mainnav .navbar ul.nav li a,#pav-mainnav .navbar ul.nav li:first-child a { 
+border-color:#7fa31a 
+} 
+
+/* customize for #pav-mainnav .mainnav-wrap a */ 
+#pav-mainnav .mainnav-wrap a { 
+color:#1ce889 
+} 
+
+/* customize for #pav-mainnav .mainnav-wrap a:hover */ 
+#pav-mainnav .mainnav-wrap a:hover { 
+color:#fa3ffa 
+} 
+
+/* customize for #pav-mainnav .dropdown-menu */ 
+#pav-mainnav .dropdown-menu { 
+background-color:#260d26 
+} 
+
+/* customize for .footer-top */ 
+.footer-top { 
+background-color:#400540 
+} 
+
+/* customize for #footer .footer-center */ 
+#footer .footer-center { 
+background-color:#23db79 
+} 
+
+/* customize for .product-block, .product-hover */ 
+.product-block, .product-hover { 
+background-color:#381111 
+} 
+
+/* customize for .product-block .price */ 
+.product-block .price { 
+color:#f5ebeb 
+} 
+
+/* customize for .price .price-new */ 
+.price .price-new { 
+color:#00ff48 
+} 
+
+/* customize for .price .price-old */ 
+.price .price-old { 
+color:#b3a5a5 
+} 
+
+/* customize for .price .price-tax */ 
+.price .price-tax { 
+color:#d64d4d 
+} 
+
+/* customize for .product-block .cart input */ 
+.product-block .cart input { 
+background-color:#c90000 
+} 
+
+/* customize for .product-block .product-hover .compare a */ 
+.product-block .product-hover .compare a { 
+background-color:#f5e31b 
+} 
+
+/* customize for .product-block .product-hover .wishlist a */ 
+.product-block .product-hover .wishlist a { 
+background-color:#662222 
+} 
+
+/* customize for .product-block .image .pav-colorbox */ 
+.product-block .image .pav-colorbox { 
+background-color:#996868 
+} 

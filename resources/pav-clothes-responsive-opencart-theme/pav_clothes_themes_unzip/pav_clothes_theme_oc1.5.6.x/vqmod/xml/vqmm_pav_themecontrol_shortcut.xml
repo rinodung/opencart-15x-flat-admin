@@ -1,0 +1,72 @@
+<modification>
+	<id>VQMod Pavo Theme Control Panel Shortcut</id>
+	<version>1.0.0</version>
+	<vqmver>2.3.0</vqmver>
+	<author>pavothemes.com</author>
+	<file name="admin/controller/common/header.php">
+		<operation error="abort">
+			<search position="before"><![CDATA[$this->data['text_zone']]]></search>
+			<add><![CDATA[
+				$this->load->model('setting/extension');
+				$extensions = $this->model_setting_extension->getInstalled('module');
+				$this->data['themecontrol_installed'] = false;
+				if(in_array("themecontrol", $extensions)){
+					$this->data['themecontrol_installed'] = true;
+				}
+
+				$this->data['megamenu_installed'] = in_array("pavmegamenu", $extensions);
+				$this->data['pavverticalmenu_installed'] = in_array("pavverticalmenu", $extensions);
+
+				$this->data['text_themecontrol_menutitle'] = $this->language->get('text_themecontrol_menutitle');
+				$this->data['text_themecontrol_config'] = $this->language->get('text_themecontrol_config');
+				$this->data['text_themecontrol_livetheme'] = $this->language->get('text_themecontrol_livetheme');
+				$this->data['text_megamenu'] = $this->language->get('text_megamenu');
+				$this->data['text_verticalmegamenu'] = $this->language->get( 'text_verticalmegamenu' );
+			 ]]></add>
+		</operation>
+		<operation error="abort">
+			<search position="before"><![CDATA[$this->data['zone']]]></search>
+			<add><![CDATA[
+					$this->data['themecontrols_config'] = $this->url->link('module/themecontrol', 'mod=themecontrol&token=' . $this->session->data['token'], 'SSL');
+					$this->data['themecontrol_livetheme'] = $this->url->link('module/themecontrol/customize', 'mod=themecontrol&token=' . $this->session->data['token'], 'SSL');
+					$this->data['megamenu_link'] = $this->url->link('module/pavmegamenu', 'mod=pavmegamenu&token=' . $this->session->data['token'], 'SSL');
+					$this->data['verticalmegamenu_link'] = $this->url->link('module/pavmegamenu', 'mod=pavmegamenu&token=' . $this->session->data['token'], 'SSL');	
+				 	
+				]]></add>
+		</operation>
+	</file>
+	<file name="admin/language/*/common/header.php">
+		<operation error="abort">
+			<search position="before"><![CDATA[$_['text_zone']]]></search>
+			<add><![CDATA[$_['text_themecontrol_menutitle']               = 'Theme Control';
+				$_['text_themecontrol_config']               = 'Theme Setting';
+				$_['text_themecontrol_livetheme']               = 'Live Theme Editor';
+				$_['text_megamenu']               = 'Pav Megamenu';
+				$_['text_verticalmegamenu']               = 'Pav Vertical Megamenu';
+				$_['text_themecontrol_manage_blog']               = 'Blogs'; ]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/common/header.tpl">
+		<operation error="abort">
+			<search position="before"><![CDATA[<li id="help"><a class="top"><?php echo $text_help; ?></a>]]></search>
+			<add><![CDATA[
+				<?php if($themecontrol_installed): ?>
+				<li id="themecontrols"><a class="top"><?php echo $text_themecontrol_menutitle; ?></a>
+					<ul>
+			          <li><a href="<?php echo $themecontrols_config; ?>"><?php echo $text_themecontrol_config; ?></a></li>
+			          <li><a href="<?php echo $themecontrol_livetheme; ?>"><?php echo $text_themecontrol_livetheme; ?></a></li>
+
+			          	<?php if($megamenu_installed): ?>
+			          	  <li><a href="<?php echo $megamenu_link; ?>"><?php echo $text_megamenu; ?></a></li>
+			          	<?php endif ; ?>
+			          	<?php if($pavverticalmenu_installed): ?>
+			          	  <li><a href="<?php echo $verticalmegamenu_link; ?>"><?php echo $text_verticalmegamenu; ?></a></li>
+			          	<?php endif ; ?>
+			        </ul>
+			    </li>
+			    <?php endif; ?>
+				]]></add>
+		</operation>
+	</file>
+
+</modification>

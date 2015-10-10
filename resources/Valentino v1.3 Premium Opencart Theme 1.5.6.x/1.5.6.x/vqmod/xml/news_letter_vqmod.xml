@@ -1,0 +1,72 @@
+<modification>
+	<id>NEWS LETTER</id>
+	<version>1.5.x</version>
+	<vqmver>2.X</vqmver>
+	<author>templates-general.com</author>
+	<file name="admin/controller/common/header.php">
+		<operation>
+			<search position="after"><![CDATA[
+            $this->data['heading_title'] = $this->language->get('heading_title');
+            ]]></search>
+			<add><![CDATA[
+            $this->data['text_newssubscribe'] = $this->language->get('text_newssubscribe');
+            ]]></add>
+		</operation>
+        	<operation>
+			<search position="before"><![CDATA[
+            	$this->data['stores'] = array();
+            ]]></search>
+			<add><![CDATA[
+            $this->data['newssubscribe'] = $this->url->link('sale/newssubscribers', 'token=' . $this->session->data['token'], 'SSL');
+            ]]></add>
+		</operation>
+	</file>
+    	<file name="admin/language/*/common/header.php">
+		<operation>
+			<search position="before"><![CDATA[
+         ?>
+            ]]></search>
+			<add><![CDATA[
+          $_['text_newssubscribe']     = 'Newsletter Subscribers';
+            ]]></add>
+		</operation>
+	</file>
+    	<file name="admin/controller/sale/contact.php">
+		<operation>
+			<search position="after"><![CDATA[
+            case 'newsletter':
+            ]]></search>
+			<add><![CDATA[
+            $results = $this->model_sale_customer->getNewsletterSubscribers();
+
+						foreach ($results as $result) {
+							$emails["s".$result['id']] = $result['email_id'];
+						}
+            ]]></add>
+		</operation>
+	</file>
+    <file name="admin/model/sale/customer.php">
+		<operation>
+			<search position="after"><![CDATA[
+            class ModelSaleCustomer extends Model {
+            ]]></search>
+			<add><![CDATA[
+            public function getNewsletterSubscribers() {
+		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "subscribe");
+
+		return $query->rows;
+	}
+            ]]></add>
+		</operation>
+	</file>
+    <file name="admin/view/template/common/header.tpl">
+		<operation>
+			<search position="after"><![CDATA[
+            <li><a href="<?php echo $contact; ?>"><?php echo $text_contact; ?></a></li>
+            ]]></search>
+			<add><![CDATA[
+            <li><a href="<?php echo $newssubscribe; ?>"><?php echo $text_newssubscribe; ?></a></li>
+            ]]></add>
+		</operation>
+	</file>
+</modification>

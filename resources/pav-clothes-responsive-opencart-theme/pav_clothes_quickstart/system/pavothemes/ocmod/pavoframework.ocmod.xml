@@ -1,0 +1,81 @@
+<modification>
+   <name><![CDATA[<font color="#0000"><b>Pavo Framework 3.0</font>]]></name>
+    <version><![CDATA[<b>1.0</b>]]></version>
+    <author><![CDATA[PavoThemes]]></author>
+    <link><![CDATA[http://www.pavothemes.com]]></link>
+    <code>PAVOFRAMEWORK4</code>    	             
+	<file path="admin/view/template/design/layout_form.tpl">
+			<operation>
+				<search position="replace"><![CDATA[
+				<select name="layout_module[<?php echo $module_row; ?>][position]" class="form-control">
+				]]></search>
+				<add><![CDATA[
+					<select name="layout_module[<?php echo $module_row; ?>][position]" class="form-control">
+					<option value="slideshow"   <?php if ($layout_module['position'] == 'slideshow') { ?>selected="selected"<?php } ?>>
+			 		 	<?php echo ucfirst('slideshow'); ?>
+			 		 </option>
+			 		 
+
+			 		
+		
+			 		 <option value="promotion"   <?php if ($layout_module['position'] == 'promotion') { ?>selected="selected"<?php } ?>>
+			 		 	<?php echo ucfirst('promotion'); ?>
+			 		 </option>
+			 
+			 		 <option value="showcase"   <?php if ($layout_module['position'] == 'showcase') { ?>selected="selected"<?php } ?>>
+			 		 	<?php echo ucfirst('showcase'); ?>
+			 		 </option>
+			
+			 		 <option value="mass_bottom"   <?php if ($layout_module['position'] == 'mass_bottom') { ?>selected="selected"<?php } ?>>
+			 		 	<?php echo ucfirst('Mass Bottom'); ?>
+			 		 </option>
+			 	
+			 		 <option value="footer_top"   <?php if ($layout_module['position'] == 'footer_top') { ?>selected="selected"<?php } ?>>
+			 		 	<?php echo ucfirst('Footer Top'); ?>
+			 		 </option>
+			 		  <option value="footer_center"   <?php if ($layout_module['position'] == 'footer_center') { ?>selected="selected"<?php } ?>>
+			 		 	<?php echo ucfirst('Footer Center'); ?>
+			 		 </option>
+			 		  <option value="footer_bottom"   <?php if ($layout_module['position'] == 'footer_bottom') { ?>selected="selected"<?php } ?>>
+			 		 	<?php echo ucfirst('Footer Bottom'); ?>
+			 		 </option>
+				]]></add>
+			</operation>
+	</file>
+
+	<file path="admin/controller/common/menu.php">
+		<operation>
+			<search position="replace">
+				 <![CDATA[ $this->load->language('common/menu');  ]]>
+			</search>
+			<add>
+			 <![CDATA[
+			 	  $this->load->language('common/menu');
+			 	 $data['pavo_link'] = $this->url->link('module/themecontrol', 'token=' . $this->session->data['token'], 'SSL');
+			 	  $data['megamenu_link'] = $this->url->link('module/pavmegamenu', 'token=' . $this->session->data['token'], 'SSL');
+			  ]]>
+			</add>	
+		</operation>		
+	</file>		
+	<file path="admin/view/template/common/menu.tpl">
+		<operation>
+			<search position="replace">
+				 <![CDATA[ <li id="sale"> ]]>
+			</search>
+			<add>
+			 <![CDATA[
+			 	  <li><a class="parent">
+			 	  	
+			 	  		<i class="fa fa-rocket fa-fw"></i> <span><?php echo 'Pavo Theme Control'; ?></span></a>
+			 	  		<ul>
+			 	  			<li><a href="<?php echo $pavo_link; ?>">Theme Control</a></li>
+			 	  			<li><a href="<?php echo $megamenu_link; ?>">MegaMenu</a></li>
+			 	  		</ul>	
+			 	  </li>	
+				  <li id="sale">
+			  ]]>
+			</add>	
+		</operation>		
+	</file>					
+</modification>					   
+					   

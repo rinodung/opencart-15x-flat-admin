@@ -1,0 +1,4 @@
+a:1:{i:1;a:14:{s:11:"description";a:3:{i:2;s:93:"&lt;p&gt;Nam libero tempore, cum soluta nobis est eligendi optio cumqueconsequat.&lt;/p&gt;
+";i:1;s:93:"&lt;p&gt;Nam libero tempore, cum soluta nobis est eligendi optio cumqueconsequat.&lt;/p&gt;
+";i:3;s:93:"&lt;p&gt;Nam libero tempore, cum soluta nobis est eligendi optio cumqueconsequat.&lt;/p&gt;
+";}s:6:"prefix";s:0:"";s:4:"tabs";a:1:{i:0;s:10:"mostviewed";}s:5:"width";s:3:"500";s:6:"height";s:3:"612";s:12:"itemsperpage";s:1:"5";s:4:"cols";s:1:"5";s:5:"limit";s:2:"15";s:8:"interval";s:4:"8000";s:9:"auto_play";s:1:"0";s:9:"layout_id";s:1:"1";s:8:"position";s:11:"content_top";s:6:"status";s:1:"1";s:10:"sort_order";i:2;}}

@@ -1,0 +1,23 @@
+body {
+	background-color: #fff;
+}
+.box .box-heading, .headForCols {
+	background: #333;
+	border: 1px solid #000;
+	color: #fff;
+}
+.box .box-heading a {
+	color: #fff;
+}
+.nav-tabs > li + li {
+	border-left: 1px solid #000;
+}
+.topBar, .head3 #logo {
+	background: #000;
+}
+.topBar #search {
+	background: #333;
+}
+header, .cartImgWrap {
+	background: #e73938;
+}

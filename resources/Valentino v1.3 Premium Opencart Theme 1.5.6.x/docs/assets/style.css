@@ -1,0 +1,139 @@
+body {
+	color: #222;
+	background: #333;
+	font: 14px/20px Helvetica, Arial, sans-serif;
+}
+h1 {
+	line-height: 40px;
+	margin-top: 0;
+	margin-bottom: 30px;
+}
+img {
+	display: block;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+.green {
+	color: #093;
+}
+.red {
+	color: red;
+}
+.blue {
+	color: blue
+}
+.bold {
+	font-weight: bold
+}
+.success {
+	padding: 10px;
+	background: #B3E9A3;
+}
+pre {
+	padding: 20px;
+	background: #d3e6ff;
+}
+p,
+ul {
+	margin: 0;
+	padding: 0;
+}
+p {
+	margin-bottom: 20px;
+}
+a {
+	color: #19a2c9
+}
+#nav {
+	left: 20px;
+	list-style: none;
+	position: fixed;
+	top: 120px;
+}
+#nav li {
+	margin-bottom: 2px;
+}
+#nav a {
+	color: #fff;
+	display: block;
+	font-size: 13px;
+	padding: 2px 10px;
+	text-decoration: none;
+	border-radius: 4px 4px 4px 4px;
+	-moz-border-radius: 4px 4px 4px 4px;
+	-webkit-border-radius:4px 4px 4px 4px;
+}
+#nav a:hover {
+	color: #ffcc00;
+}
+#nav .current a {
+	background: #ffcc00;
+	color: #333;
+}
+.current {
+	background: #ffcc00;
+	border-radius: 4px 4px 4px 4px;
+	-moz-border-radius: 4px 4px 4px 4px;
+	-webkit-border-radius:4px 4px 4px 4px;
+}
+#container {
+	float: right;
+	width: 84%;
+	margin-top:38px;
+	margin-right: 20px;
+	position: relative;
+}
+.section {
+	border-bottom: 10px solid #ffcc00;
+	background: #fff;
+	border-radius: 5px 5px 5px 5px;
+	-moz-border-radius: 5px 5px 5px 5px;
+	-webkit-border-radius:5px 5px 5px 5px;
+	padding: 30px;
+	min-height: 500px;
+	margin-bottom: 50px;
+}
+.section p:last-child {
+	margin-bottom: 0;
+}
+.section img {
+	clear: both
+}
+
+
+/*================= Page style */
+.logo {
+	position: fixed;
+	top: 0;
+	left: 20px;
+}
+.links {
+	/*position: fixed;
+	top: 50px;
+	width: 50px;
+	right: 50px;*/
+	float: right;
+	margin: 20px 50px 0 0;
+}
+.links li {
+	display: inline;
+	list-style: none;
+}
+.links li a {
+	display: block;
+	float: left;
+	width: 50px;
+	height: 50px;
+	margin-bottom: 5px;
+	border-radius: 5px 5px 5px 5px;
+	-moz-border-radius: 5px 5px 5px 5px;
+	-webkit-border-radius:5px 5px 5px 5px;
+	text-align: center;
+}
+.links li a:hover {
+	background: #000;
+}
+.links li a img {
+	margin: 15px auto 0 auto;
+	float: none;
+}

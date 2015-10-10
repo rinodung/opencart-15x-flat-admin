@@ -1,0 +1,4 @@
+a:1:{i:1;a:14:{s:5:"image";a:3:{i:2;s:0:"";i:1;s:0:"";i:3;s:0:"";}s:11:"description";a:3:{i:2;s:92:"&lt;p&gt;Nam libero tempore, cum soluta nobis est eligendi optio cumqueconsequat&lt;/p&gt;
+";i:1;s:92:"&lt;p&gt;Nam libero tempore, cum soluta nobis est eligendi optio cumqueconsequat&lt;/p&gt;
+";i:3;s:92:"&lt;p&gt;Nam libero tempore, cum soluta nobis est eligendi optio cumqueconsequat&lt;/p&gt;
+";}s:11:"block_width";s:2:"12";s:5:"class";s:23:"hightlight-featured-box";s:16:"featured_product";s:23:"47,48,29,32,40,49,31,46";s:5:"width";s:3:"500";s:6:"height";s:3:"612";s:12:"itemsperpage";s:1:"4";s:4:"cols";s:1:"4";s:5:"limit";s:2:"16";s:9:"layout_id";s:1:"1";s:8:"position";s:8:"showcase";s:6:"status";s:1:"1";s:10:"sort_order";i:1;}}

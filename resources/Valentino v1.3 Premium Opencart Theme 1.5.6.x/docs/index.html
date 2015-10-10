@@ -1,0 +1,366 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+  <!-- Basic Page Needs -->
+  <meta charset="utf-8">
+  <title>valentino Theme Documentation</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- CSS Style -->
+  <link rel="stylesheet" href="assets/style.css" /> 
+  <!-- aToolTip css -->
+  <link href="assets/atooltip.css" rel="stylesheet"  media="screen" />
+  <!-- JS -->
+  <script src="assets/jquery-1.7.2.min.js"></script> <!-- jQuery library -->
+  <script src="assets/jquery.atooltip.min.js"></script>  
+  <script src="assets/jquery.scrollTo.js"></script>
+  <script src="assets/jquery.nav.js"></script>
+  <script>
+  //navigation
+  $(document).ready(function() {
+  $('#nav').onePageNav({
+	begin: function() {
+	console.log('start')
+	},
+	end: function() {
+	console.log('stop')
+	}
+  });
+  });
+  // tooltip start here
+  $(function(){  
+    $('a.normalTip').aToolTip(); 
+  });
+  </script>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="">
+  <link rel="apple-touch-icon" href="">
+  <link rel="apple-touch-icon" sizes="">
+  <link rel="apple-touch-icon" sizes="">
+  
+  
+</head>
+
+<body onload="setTimeout(function() { window.scrollTo(0, 1) }, 100);">
+
+
+<ul class="links">
+<li><a class="normalTip" target="_blank" href="http://support.venzastudio.com" title="Support"><img src="images/support.png" alt=""  /></a></li>
+<li><a class="normalTip" target="_blank" href="http://themes.venzastudio.com/valentino/intro" title="Demo"><img src="images/demo.png" alt=""  /></a></li>
+<li><a class="normalTip" target="_blank" href="http://themes.venzastudio.com/valentino/default/admin" title="Admin panel"><img src="images/admin.png" alt=""  /></a></li>
+<li><a class="normalTip" target="_blank" href="http://themes.venzastudio.com/valentino/log" title="Change logs"><img src="images/changelogs.png" alt=""  /></a></li>
+<li><a class="normalTip" target="_blank" href="#" title="Buy Now"><img src="images/buy.png" alt=""  /></a></li>
+</ul>
+
+    <div class="wrap">
+    	
+        <img src="images/logo.png" class="logo" alt=""  />
+        
+        <ul id="nav">
+            <li class="current"><a href="#welcome">Welcome</a></li>
+            <li><a href="#theme-installation">Theme Installation</a></li>
+            <li><a href="#image-settings">Image Settings</a></li>
+            <li><a href="#layout">Layout Guide</a></li>
+            <li><a href="#banner">Banner</a></li>
+            <li><a href="#Master-slideshow">Nivo Slideshow</a></li>
+            <li><a href="#newsletter">Newsletter</a></li>
+            <li><a href="#extra">Extra Products Information</a></li>
+            <li><a href="#products-by-category">Products by Categories</a></li>
+            <li><a href="#pav-blog">Pav Blog</a></li>
+            <li><a href="#pav-mega-menu">Pav Mega Menu</a></li>
+            <li><a href="#extra-product-tabs">Extra Product Tabs</a></li>
+            <li><a href="#valentino-theme-options">valentino Theme Options</a></li>
+            <li><a href="#credits">Credits</a></li>
+        </ul>
+                
+        <div id="container">
+			
+            <div class="section" id="welcome">
+                <h1>Welcome to Valentino Opencart Theme Documentation</h1>
+                <p>Thank you for purchasing <strong>valentino Premium Opencart theme, the most completed opencart theme ever created</strong>.</p>
+                <ul>
+                	<li>Created by: <a target="_blank" href="http://themeforest.net/user/VenzaStudio">Venza Studio</a> Team.</li>
+                    <li>Support: Visit our <a target="_blank" href="http://support.venzastudio.com">support forum</a> if you need any help</li>
+                    <li>Version Compatability: <strong>1.5.6.x</strong>, others versions very soon !!</li>
+                </ul>
+                <br/><br/>
+                <h2>Valentino Theme Features</h2>
+                <ol>
+                    <li>Autofill search</li>
+                    <li>Latest products by category module with sub-categories choosing</li>
+                    <li>Blog manager ready</li>
+                    <li>Responsive Nivo Slider</li>
+                    <li>Responsive Camera Slider</li>
+                    <li>Show or Hide Default Opencart Menu</li>
+                    <li>All product modules with grid or slide display</li>
+                    <li>LTR & RTL positions (Unlimited languages)</li>
+                    <li>Custom Banner for each category and subcategory</li>
+                    <li>1, 2 or 3 columns</li>
+                    <li>Mega menu</li>
+                    <li>Bootstrap framework</li>
+                    <li>100% Responsive design</li>
+                    <li>Newsletter module</li>
+                    <li>Unlimited colors, fonts, backgrounds</li>
+                    <li>Custom HTML widget</li>
+                    <li>Social icons integrated.</li>
+                    <li>Custom payment icons with links and names</li>
+                    <li>Unlimited product tabs</li>
+                    <li>Swap products images</li>
+                    <li>New page positions for more unique designs</li>
+                    <li>Zoom for products images</li>
+                    <li><strong>more and more and more ...</strong></li>
+                </ol>
+            </div><!--/welcome-->
+            <div class="section" id="theme-installation">
+                <h1>How To Install</h1>
+                <ol>
+                	<li>
+                    <span style="color:red">If you already had working opencart store so take a full backup for all its folders, files and database then skip the first 2 steps and jump to step 3.</span><br/>If it's your first time to install a new opencart store so you must first go to <a target="_blank" href="http://opencart.com">Official Opencart Site</a> and download opencart default theme that compatable with our theme version from here <a target="_blank" href="http://www.opencart.com/index.php?route=download/download">Download default Opencart theme</a>
+                    </li>
+                    <li>
+                    <a href="http://docs.opencart.com/display/opencart/Installation" target="_blank">Install the default opencart theme</a> that you downloaded.
+                    </li>
+                    <li>
+                    	Now <a href="https://code.google.com/p/vqmod/wiki/Install_OpenCart" target="_blank">install vqmod</a> if you didn't installed it before.</li>
+                    <li>
+                    	Open any ftp program like <a href="https://filezilla-project.org/" target="_blank">Filezilla Client</a> and login to your store by your ftp.
+                    </li>
+                    <li>
+                    	Open from local window side this folder from your Themeforest downloaded package <strong>Theme_Upload (v.1.0) / 1.5.6.x</strong>
+                    </li>
+                    <li>
+                    	Drag all folders and files from the local window and drop it on the remote server window. <br/> <img src="images/img/install.png" alt=""  />
+                    </li>
+                    <li>
+                    	Now you need to activate valentino theme from admin panel so login to your admin panel and follow : <br/>
+                    <strong>Admin panel > system > setting > Edit > Store > Template: valentino > save</strong> <br/> <img src="images/img/activate.png" alt=""  />
+                    </li>
+                    <li>
+                    	<strong>Go to Admin panel > System > User > User Groups > Top Administrator </strong> <br/>
+                    	Clcik <span class="green">Select All</span> in poth (Access premission and Modify permission)
+                    	<img src="images/img/user.png" alt=""/>
+                    </li>
+                    <li>
+                    	<strong>Go to Admin panel > System > Design > Layout > insert </strong> <br/>
+                    	Add new layout called <strong class="green">all pages</strong> (case sensetive) then hit save button.
+                    	<img src="images/img/allpages.png" alt=""/>
+                    </li>
+                    <li>
+                    	<strong>Go to Admin panel > catalog > Extra Product tabs</strong> Then add at least one tab, not important to activate it inside any product but it's important to avoid any error 
+                    	<img src="images/img/ex1.png" alt="" />
+                    </li>
+                    <li>Now Open your language file through your server : <br>
+                    	Go to : <strong>Catalog/language/<span class="red">*your language folder*</span>/<span class="red">*english*</span>.php</strong>, add these lines and save the changes : 
+                    	<pre>
+// Custom
+$_['text_advanced_search']             = 'Advanced search';
+$_['text_save']                        = 'Save: ';
+$_['text_sale']                        = 'SALE';
+$_['text_menu']                        = 'Menu';
+$_['text_see_details']                 = 'See Details';
+$_['cat_title']    			   		   = 'Categories';
+$_['text_links']    			   	   = 'Links';
+$_['text_more']    			   	   	   = 'More';
+$_['text_twitter']    			   	   = 'LATEST TWEETS';
+$_['text_flickr']    			   	   = 'FLICKR STREAM';
+                    	</pre>
+                    </li>
+                    <li>If arabic language Open your language file through your server : <br>
+                    	Go to : <strong>Catalog/language/<span class="red">*your language folder*</span>/<span class="red">*arabic*</span>.php</strong>, add these lines and save the changes : 
+                    	<pre>
+// Custom
+$_['text_advanced_search']             = 'البحث المتقدم';
+$_['text_save']                        = 'خصم';
+$_['text_menu']                        = 'القائمة الرئيسية';
+$_['text_see_details']                 = 'التفاصيل';
+$_['cat_title']    			           = 'الاقسام';
+$_['text_links']    			   	   = 'روابط سريعة';
+$_['text_more']    			   	   	   = 'المزيد';
+$_['text_twitter']    			   	   = 'تويتر';
+$_['text_flickr']    			   	   = 'فليكر';
+$_['text_sale']    			   	       = 'خصم';
+$_['text_blogs']    			   	   = 'اخبارنا';
+                    	</pre>
+                    </li>
+                </ol>
+                <p class="bold green success">Now you finished installing and activating our valentino theme, Go down to see how to manage your amazing valentino theme.</p>
+                
+            </div><!--/theme-installation-->
+            
+            <div class="section" id="image-settings">
+                <h1>Image Settings</h1>
+                Login to <strong>Admin panel > System > Settings > Edit > Image > <span class="red">Apply images settings as the following</span></strong>. Then Hit save button.
+                <br/> <img src="images/img/image-settings.png" alt=""  />
+                <h1>For Featured, Latest, Bestseller and Special</h1>
+                <strong>Position :<span class="blue"> Admin panel > extensions > modules > featured </span> </strong><br/>
+                <strong>Position :<span class="blue"> Admin panel > extensions > modules > latest </span> </strong><br/>
+                <strong>Position :<span class="blue"> Admin panel > extensions > modules > bestseller </span> </strong><br/>
+                <strong>Position :<span class="blue"> Admin panel > extensions > modules > speical </span> </strong><br/>
+                <p>Apply these dimentions values</p>
+                <br/> <img src="images/img/image-settings2.png" alt=""  />
+            </div><!--/-->
+            
+            
+            <div class="section" id="layout">
+                <h1>Layout Guide</h1>
+                <p>We added a new position in valentino theme to apply more unique layouts and unlimited to choose and create, go down to see how to make your store as same as our demos :</p>
+                <img src="images/img/lay1.png" alt=""  /><hr />
+            </div><!--/-->
+            
+            
+            <div class="section" id="banner">
+                <h1>Banner</h1>
+                <strong>Position :<span class="blue"> Admin panel > extensions > modules > Banner </span> </strong>
+                <p>We added some improvements through banner module to make it more responsive and easy to use in home page, you will see inside it a select menu :</p>
+                <ul>
+                	<li>span3 <span class="red">= 270px > Use only in Home page</span></li>
+                	<li>span4 <span class="red">= 370px > Use only in Home page</span></li>
+                	<li>span6 <span class="red">= 570px > Use only in Home page</span></li>
+                	<li>span9 <span class="red">= 870px > Use only in Home page</span></li>
+                	<li>span12 <span class="red">= 1170px > Use only in Home page</span></li>
+                	<li>None <span class="red">> Use in all internal pages</span></li>
+                </ul>
+                <img src="images/img/ban.png" alt="" />
+            </div><!--/-->
+            
+            
+            <div class="section" id="Master-slideshow">
+                <h1>Nivo Slideshow</h1>
+            
+                <p>We added some improvements through slideshow module to make it more responsive and easy to use in home page, you will see inside it a select menu :</p>
+                <ul>
+                	<li>span3 <span class="red">= 270px > Use only in Home page</span></li>
+                	<li>span4 <span class="red">= 370px > Use only in Home page</span></li>
+                	<li>span6 <span class="red">= 570px > Use only in Home page</span></li>
+                	<li>span9 <span class="red">= 870px > Use only in Home page</span></li>
+                	<li>span12 <span class="red">= 1170px > Use only in Home page</span></li>
+                	<li>None <span class="red">> Use in all internal pages</span></li>
+                </ul>
+                <img src="images/img/ban.png" alt="" />
+                <img src="images/img/slideshow.png" alt="" />
+            </div><!--/-->
+            
+            
+            <div class="section" id="newsletter">
+                <h1>Newsletter</h1>
+                <strong>Position :<span class="blue"> Admin panel > extensions > modules > News Letter </span> </strong>
+                <img src="images/img/newsletter.png" alt="" />
+                You can get the subscribers and manage them from : <span class="blue"> Admin panel > Sales > NewsLetter subscribers </span>
+            </div><!--/-->
+            
+            <div class="section" id="extra">
+            	<h1>Extra Products Informations</h1>
+            	<strong>Position :<span class="blue"> Admin panel > System > Settings > Edit > Option </span> </strong>
+            	<img src="images/img/extra.png" alt="" />
+            	<img src="images/img/option.png" alt="" />
+            </div>
+            
+            <div class="section" id="products-by-category">
+                <h1>Latest Products by Category</h1>
+                <strong>Position :<span class="blue"> Admin panel > extensions > modules > Product by category </span> </strong>
+                <p>We created this module helping you showing your products by categories and sub categories in smart way.</p>
+                <img src="images/img/prodbycat.png" alt="" />
+            </div><!--/-->
+            
+            <div class="section" id="pav-blog">
+                <h1>PAV Blog</h1>
+                <strong>Position :<span class="blue"> Admin panel > extensions > modules > Pav Blog Management </span> </strong><br />
+                <strong>Position :<span class="blue"> Admin panel > extensions > modules > Pav Blog Category Module </span> </strong><br />
+                <strong>Position :<span class="blue"> Admin panel > extensions > modules > Pav Blog Latest Comment Module </span> </strong><br />
+                <strong>Position :<span class="blue"> Admin panel > extensions > modules > Pav Blog Latest Module </span> </strong><br />
+                <p>We thank PAV team for this great module. you can manage unlimited articles with unlimited languages and unlimited categories.</p>
+                <h3><a href="http://www.pavothemes.com/guides/pavblog/" target="_blank">PAV Blog Documentation</a></h3>
+                <strong class="red">If you want any support please add your ticket : <a href="http://support.venzastudio.com" target="_blank">Venza Studio Support Forum</a></strong>
+            </div><!--/-->
+            
+            
+            <div class="section" id="pav-mega-menu">
+                <h1>PAV Mega Menu</h1>
+                <strong>Position :<span class="blue"> Admin panel > extensions > modules > Pav Mega Menu </span> </strong>
+				<h3><a href="http://www.pavothemes.com/guides/pav_megamenu/#!/documenter_cover" target="_blank">Mega Menu Documentation</a></h3>
+                <strong class="red">If you want any support please add your ticket : <a href="http://support.venzastudio.com" target="_blank">Venza Studio Support Forum</a></strong>
+              
+            </div><!--/-->
+            
+           
+            <div class="section" id="extra-product-tabs">
+                <h1>Extra Product Tabs</h1>
+                <strong>Position :<span class="blue"> Admin panel > catalog > Extra Product Tabs </span> </strong>
+                <strong>Position :<span class="blue"> Admin panel > catalog > Product (Edit) > Extra Tabs </span> </strong>
+                <p>You can create unlimited additional product tabs</p>
+                <ol>
+                	<li>Go to <strong>Admin panel > catalog > Extra Product Tabs</strong> and create a tab section.</li>
+                	<li>Go to <strong>Admin panel > catalog > Selected Product (Edit) > Extra Tabs</strong> Fill data for each tab you created or delete them if you want.</li>
+                </ol>
+            </div><!--/-->
+            
+            
+            <div class="section" id="valentino-theme-options">
+                <h1>valentino Theme Options</h1>
+                <strong>Position :<span class="blue"> Admin panel > extensions > modules > valentino Theme Options </span> </strong>
+                <p>We created valentino theme to be the last theme you can purchase as it full of many many many options to create your favourite look and any type of stores even the big stores that has many categories.</p>
+                <br /><br />
+                <h2>
+                	Body
+                </h2>
+                <img src="images/img/body.png" />
+                <br /><br />
+                <h2>
+                	Container
+                </h2>
+                <img src="images/img/container.png" />
+                <br /><br />
+                <h2>
+                	Colors
+                </h2>
+                <img src="images/img/colors.png" />
+                <br /><br />
+                <h2>
+                	Bottons
+                </h2>
+                <img src="images/img/buttons.png" />
+                <br /><br />
+                <h2>
+                	Fonts
+                </h2>
+                <h3>How to add fonts from google fonts site ?</h3>
+                <ol>
+                	<li>Go to this site : <a href="http://www.google.com/webfonts" target="_blank">www.google.com/webfonts</a></li>
+                	<li>Choose your favourite font and click on <strong>Quick use</strong> link of font.</li>
+                	<li>You will be redirected to font page details.</li>
+                	<li>Go to the down of the page to get the font family name and font link name :</li>
+                </ol>
+                <img src="images/img/font-settings.png" />
+                <img src="images/img/fonts.png" />
+                <h2>
+                	Custom Options
+                </h2>
+                <img src="images/img/customoptions.png" />
+                <br /><br />
+                <h2>
+                	Other Options
+                </h2>
+                <img src="images/img/otheroptions.png" />
+            </div><!--/-->
+            
+            
+            <div class="section" id="credits">
+                <h1>Credits</h1>
+                <ul>
+                	<li><a href="" target="_blank">Pav Blog</a></li>
+                	<li><a href="" target="_blank">Pav Mega Menu</a></li>
+                </ul>
+            </div><!--/-->
+             
+        </div><!--/container-->
+    
+
+	</div><!--/wrap-->
+</body>
+</html>

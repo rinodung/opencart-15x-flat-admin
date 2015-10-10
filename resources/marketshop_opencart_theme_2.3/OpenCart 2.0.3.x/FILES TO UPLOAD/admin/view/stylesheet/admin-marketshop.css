@@ -1,0 +1,8 @@
+.color { border:1px solid #ccc; padding:3px 6px!important;}
+small{color:#999; text-transform:none;}
+.img-patt { width:45px; display: inline-block; text-align: center; margin-bottom:10px;}
+.marketshop_help{width:20px; height:20px; line-height:20px; border-radius:50%; font-size:13px; font-weight:bold; background:#b7cdd8; display:inline-block; text-align:center; color:#FFF!important; text-decoration:none; margin-left:8px;}
+table.mytable > tbody > tr > td:first-child{text-align:right; width:30%;}
+.well .table-hover > tbody > tr:hover{background-color:#fff;}
+.nav-pills li{background:#f4f4f4}
+.nav-pills li a{outline:none;}
