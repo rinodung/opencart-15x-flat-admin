@@ -1,0 +1,2510 @@
+<modification>
+<id>Flat Admin Responsive</id>
+<version>2.0.0</version>
+<vqmver>2.x.x</vqmver>
+<author>ThemeBooster.com</author>
+
+	
+	<!-- DO NOT edit after this line (do at your risk)  -->
+	
+	
+	<file name="admin/controller/common/header.php">
+		<operation error="skip">
+			<search position="before"><![CDATA[$this->data['heading_title'] = $this->language->get('heading_title');]]></search>
+			<add><![CDATA[
+			$this->data['text_view'] = $this->language->get('text_view');
+			$this->data['text_pending_order_evidence'] = $this->language->get('text_pending_order_evidence');
+			$this->data['text_pending_orders_evidence'] = $this->language->get('text_pending_orders_evidence');
+			$this->data['text_approval_customer_evidence'] = $this->language->get('text_approval_customer_evidence');
+			$this->data['text_approval_customers_evidence'] = $this->language->get('text_approval_customers_evidence');
+			]]></add>
+		</operation>
+	</file>
+	
+	<file name="admin/controller/*/*.php">
+		<operation error="skip">
+			<search position="before"><![CDATA[if (isset($this->error['warning'])) {]]></search>
+			<add><![CDATA[
+			$this->data['text_actions'] = $this->language->get('text_actions');
+			]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[$this->data['errors'] = $this->errors;]]></search>
+			<add><![CDATA[
+			$this->data['text_actions'] = $this->language->get('text_actions');
+			]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[$this->error = array();]]></search>
+			<add><![CDATA[
+			$this->data['text_actions'] = $this->language->get('text_actions');
+			]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[$this->data['heading_title'] = $this->language->get('heading_title');]]></search>
+			<add><![CDATA[
+			$this->data['text_actions'] = $this->language->get('text_actions');
+			]]></add>
+		</operation>
+	</file>
+
+	
+	
+	<!-- Login -->
+	<file name="admin/controller/common/login.php">
+		<operation>
+			<search position="after" offset="1"><![CDATA[
+			$this->language->load('common/login');
+			]]></search>
+			<add><![CDATA[
+			$this->language->load('common/footer');
+			$this->data['text_footer'] = sprintf($this->language->get('text_footer'), VERSION);
+			]]></add>
+		</operation>
+		<operation>
+			<search position="after"><![CDATA[
+			$this->data['button_login'] = $this->language->get('button_login');
+			]]></search>
+			<add><![CDATA[
+			$this->data['name'] = $this->config->get('config_name');
+			$this->language->load('common/footer');
+			$this->data['text_footer'] = sprintf($this->language->get('text_footer'), VERSION);
+			$this->data['home'] = $this->url->link('common/home');
+			
+			if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
+			$server = $this->config->get('config_ssl');
+			} else {
+			$server = $this->config->get('config_url');
+			}
+
+			
+			$this->data['base'] = $server;
+			
+			if ($this->config->get('config_icon') && file_exists(DIR_IMAGE . $this->config->get('config_icon'))) {
+			$this->data['icon'] = $server . 'image/' . $this->config->get('config_icon');
+			} else {
+			$this->data['icon'] = '';
+			}
+			
+			
+			if ($this->config->get('config_logo') && file_exists(DIR_IMAGE . $this->config->get('config_logo'))) {
+			$this->data['logo'] = $server . 'image/' . $this->config->get('config_logo');
+			} else {
+			$this->data['logo'] = '';
+			}	
+			]]></add>
+		</operation>
+	</file>
+	
+
+	
+	
+	<!-- Header -->
+	
+	<file name="admin/controller/common/header.php">
+		<operation>
+			<search position="after" offset="1"><![CDATA[
+			$this->language->load('common/header');
+			]]></search>
+			<add><![CDATA[
+			$this->language->load('common/footer');
+			$this->data['text_footer'] = sprintf($this->language->get('text_footer'), VERSION);
+			]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="after"><![CDATA[$this->data['direction'] = $this->language->get('direction');]]></search>
+			<add><![CDATA[$this->data['name'] = $this->config->get('config_name');
+			
+			$this->load->model('sale/customer');
+
+			$this->data['total_customer'] = $this->model_sale_customer->getTotalCustomers();
+			$this->data['total_customer_approval'] = $this->model_sale_customer->getTotalCustomersAwaitingApproval();
+
+			$url = '';
+
+			if (!$this->user->isLogged() || !isset($this->request->get['token']) || !isset($this->session->data['token']) || ($this->request->get['token'] != $this->session->data['token'])) {
+				$this->data['logged'] = '';
+
+				$this->data['home'] = $this->url->link('common/login', '', 'SSL');
+				} else {
+			
+			$this->data['link_to_sale'] = $this->url->link('sale/order', 'token=' . $this->session->data['token'] . $url, 'SSL');
+			$this->data['link_to_customers'] = $this->url->link('sale/customer', 'token=' . $this->session->data['token'] . $url, 'SSL');
+			}
+			]]></add>
+		</operation>
+	</file>
+	
+	
+	
+	<!-- Dashboard New Blocks -->
+	<file name="admin/controller/common/home.php">
+		<operation error="skip">
+			<search position="after">
+			<![CDATA[$this->document->setTitle($this->language->get('heading_title'));]]>
+			</search>
+			<add><![CDATA[
+			$url = '';
+			$this->data['text_menu_statistics'] = $this->language->get('text_menu_statistics');
+			$this->data['menu_statistics'] = $this->url->link('report/sale_order', 'token=' . $this->session->data['token'] . $url, 'SSL');
+			$this->data['link_to_sale'] = $this->url->link('sale/order', 'token=' . $this->session->data['token'] . $url, 'SSL');
+			$this->data['link_to_customers'] = $this->url->link('sale/customer', 'token=' . $this->session->data['token'] . $url, 'SSL');
+			$this->data['link_to_reviews'] = $this->url->link('catalog/review', 'token=' . $this->session->data['token'] . $url, 'SSL');
+			$this->data['link_to_affiliates'] = $this->url->link('sale/affiliate', 'token=' . $this->session->data['token'] . $url, 'SSL');
+			$this->data['link_to_coupons'] = $this->url->link('report/sale_coupon', 'token=' . $this->session->data['token'] . $url, 'SSL');
+			$this->data['text_new_customers'] = $this->language->get('text_new_customers');
+			$this->data['text_new_reviews'] = $this->language->get('text_new_reviews');
+			$this->data['text_year_sale'] = $this->language->get('text_year_sale');
+			$this->data['text_today_sale'] = $this->language->get('text_today_sale');
+			$this->data['text_week_sale'] = $this->language->get('text_week_sale');
+			$this->data['text_month_sale'] = $this->language->get('text_month_sale');
+			$this->data['text_orders'] = $this->language->get('text_orders');
+			$this->data['text_view'] = $this->language->get('text_view');
+			$this->data['text_view_all'] = $this->language->get('text_view_all');
+			$this->data['text_jump_to_statistics'] = $this->language->get('text_jump_to_statistics');
+			$this->data['viewed_products_title'] = $this->language->get('viewed_products_title');
+			$this->data['bestsellers_title'] = $this->language->get('bestsellers_title');
+			$this->data['top_customers_title'] = $this->language->get('top_customers_title');
+			$this->data['top_coupon_title'] = $this->language->get('top_coupon_title');
+			$this->data['item'] = $this->language->get('item');
+			$this->data['items'] = $this->language->get('items');
+			$this->data['time'] = $this->language->get('time');
+			$this->data['times'] = $this->language->get('times');
+			$this->data['number_order'] = $this->language->get('number_order');
+			$this->data['number_orders'] = $this->language->get('number_orders');
+			$this->data['star_rating'] = $this->language->get('star_rating');
+			$this->data['stars_rating'] = $this->language->get('stars_rating');
+			]]></add>
+		</operation>
+		<operation error="skip"><search position="before"><![CDATA[$this->data['text_total_sale_year']]]></search>
+			<add><![CDATA[// Sales
+			$this->data['text_total_sale_today'] = $this->language->get('text_total_sale_today');
+			$this->data['text_total_sale_week'] = $this->language->get('text_total_sale_week');
+			$this->data['text_total_sale_month'] = $this->language->get('text_total_sale_month');
+			$this->data['text_pending_orders'] = $this->language->get('text_pending_orders');
+			$this->data['text_new_affiliates'] = $this->language->get('text_new_affiliates');
+			$this->data['text_awaiting_customers'] = $this->language->get('text_awaiting_customers');
+			]]></add>
+		</operation>
+		<operation error="skip"><search position="before"><![CDATA[$this->data['total_sale_year']]]></search>
+			<add><![CDATA[// Sales
+			$this->data['total_sale_today'] = $this->currency->format($this->model_sale_order->getTotalSalesByDay(date('D')), $this->config->get('config_currency'));
+			$this->data['total_sale_week'] = $this->currency->format($this->model_sale_order->getTotalSalesByWeek(date('W')), $this->config->get('config_currency'));
+			$this->data['total_sale_month'] = $this->currency->format($this->model_sale_order->getTotalSalesByMonth(date('M')), $this->config->get('config_currency'));
+			$this->data['report_product_purchased'] = $this->url->link('report/product_purchased', 'token=' . $this->session->data['token'], 'SSL');
+			$this->data['report_product_viewed'] = $this->url->link('report/product_viewed', 'token=' . $this->session->data['token'], 'SSL');
+			$this->data['report_customer_order'] = $this->url->link('report/customer_order', 'token=' . $this->session->data['token'], 'SSL');
+			$this->data['review'] = $this->url->link('catalog/review', 'token=' . $this->session->data['token'], 'SSL');
+			$this->data['coupon'] = $this->url->link('report/sale_coupon', 'token=' . $this->session->data['token'], 'SSL');
+			]]></add>
+		</operation>
+		
+		
+		
+		<!-- Most Viewed -->
+		<operation error="skip">
+			<search position="after"><![CDATA[$this->response->setOutput($this->render());]]></search>
+			<add><![CDATA[
+			$this->language->load('report/product_viewed');
+			$this->load->model('report/product');
+			
+			$product_viewed_total = $this->model_report_product->getTotalProductsViewed($data); 
+			$product_views_total = $this->model_report_product->getTotalProductViews(); 
+
+			$results = $this->model_report_product->getProductsViewed($data);
+
+			foreach ($results as $result) {
+				if ($result['viewed']) {
+					$percent = round($result['viewed'] / $product_views_total * 100, 2);
+				} else {
+					$percent = 0;
+				}
+
+				$this->data['products'][] = array(
+					'name'    => $result['name'],
+					'model'   => $result['model'],
+					'viewed'  => $result['viewed'],
+					'percent' => $percent . '%'			
+				);
+			}
+
+			$this->data['text_no_results'] = $this->language->get('text_no_results');
+			$this->response->setOutput($this->render());
+			
+			]]></add>
+		</operation>
+		
+		
+		
+		<!-- Bestsellers -->
+		<operation error="skip">
+			<search position="after"><![CDATA[$this->response->setOutput($this->render());]]></search>
+			<add><![CDATA[
+			$this->language->load('report/product_purchased');
+			$this->load->model('report/product');
+			
+			$product_total = $this->model_report_product->getTotalPurchased($data);
+			$results = $this->model_report_product->getPurchased($data);
+
+			foreach ($results as $result) {
+				$this->data['sellers'][] = array(
+					'name'       => $result['name'],
+					'model'      => $result['model'],
+					'quantity'   => $result['quantity'],
+					'total'      => $this->currency->format($result['total'], $this->config->get('config_currency'))
+				);
+			}
+
+			$this->load->model('localisation/order_status');
+			$this->response->setOutput($this->render());
+			
+			]]></add>
+		</operation>
+		
+		
+		
+		<!-- Best Customers -->
+		<operation error="skip">
+			<search position="after"><![CDATA[$this->response->setOutput($this->render());]]></search>
+			<add><![CDATA[
+			$this->language->load('report/customer_order');
+			$this->load->model('report/customer');
+			
+			$this->data['customers'] = array();
+			
+			$customer_total = $this->model_report_customer->getTotalOrders($data); 
+			$results = $this->model_report_customer->getOrders($data);
+
+			foreach ($results as $result) {
+				$this->data['customers'][] = array(
+				'customer'       => $result['customer'],
+				'email'          => $result['email'],
+				'customer_group' => $result['customer_group'],
+				'status'         => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
+				'orders'         => $result['orders'],
+				'products'       => $result['products'],
+				'total'          => $this->currency->format($result['total'], $this->config->get('config_currency')),
+				'action'         => $action
+				);
+			}
+
+			$this->load->model('localisation/order_status');
+			$this->response->setOutput($this->render());
+			
+			]]></add>
+		</operation>
+		
+		
+		
+		<!-- Most Returned -->
+		<operation error="skip">
+			<search position="after"><![CDATA[$this->response->setOutput($this->render());]]></search>
+			<add><![CDATA[
+			$this->language->load('report/sale_coupon');
+			$this->load->model('report/coupon');
+			$this->data['coupons'] = array();
+			
+			$coupon_total = $this->model_report_coupon->getTotalCoupons($data); 
+		
+			$results = $this->model_report_coupon->getCoupons($data);
+	
+			foreach ($results as $result) {
+				$this->data['coupons'][] = array(
+					'name'   => $result['name'],
+					'code'   => $result['code'],
+					'orders' => $result['orders'],
+					'total'  => $this->currency->format($result['total'], $this->config->get('config_currency'))
+				);
+			}
+	
+			$this->response->setOutput($this->render());
+			
+			]]></add>
+		</operation>
+	</file>
+	
+	
+	
+	<!-- Pending Orders -->
+	<file name="admin/controller/common/header.php">
+		<operation error="skip"><search position="before"><![CDATA[$this->data['stores'] = array();]]></search>
+			<add><![CDATA[
+			$this->language->load('sale/order');
+			$this->load->model('sale/order');
+			$this->data['total_pending_order'] = $this->model_sale_order->getPendingOrders();]]></add>
+		</operation>
+	</file>
+	<file name="admin/controller/common/home.php">
+		<operation error="skip"><search position="after"><![CDATA[$this->data['total_order'] = $this->model_sale_order->getTotalOrders();]]></search>
+			<add><![CDATA[$this->data['total_pending_order'] = $this->model_sale_order->getPendingOrders();]]></add>
+		</operation>
+	</file>
+	
+	
+	
+	<!-- Sale Order -->
+	<file name="admin/model/sale/order.php">
+	    <operation error="skip"><search position="before"><![CDATA[public function getTotalSalesByYear($year) {]]></search>
+			<add><![CDATA[
+				public function getTotalSalesByDay($day) {
+					$query = $this->db->query("SELECT SUM(total) AS total FROM `" . DB_PREFIX . "order` WHERE order_status_id > '0' AND DATE(date_added) = DATE(NOW())");
+					return $query->row['total'];
+				}
+						
+				public function getTotalSalesByWeek($week) {
+					$query = $this->db->query("SELECT SUM(total) AS total FROM `" . DB_PREFIX . "order` WHERE order_status_id > '0' AND WEEK(date_added) = WEEK(NOW()) AND YEAR(date_added) = YEAR(NOW())");
+					return $query->row['total'];
+				}
+				
+				public function getTotalSalesByMonth($month) {
+					$query = $this->db->query("SELECT SUM(total) AS total FROM `" . DB_PREFIX . "order` WHERE order_status_id > '0' AND MONTH(date_added) = MONTH(NOW()) AND YEAR(date_added) = YEAR(NOW())");
+					return $query->row['total'];
+				}
+			]]></add>
+		</operation>
+		<operation error="skip"><search position="before"><![CDATA[public function getTotalOrdersByStoreId($store_id) {]]></search>
+			<add><![CDATA[
+				public function getTotalOrderByDay() {
+					$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "order` WHERE order_status_id > '0' AND DATE(date_added) = DATE(NOW())");
+					return $query->row['total'];
+				}
+	
+				public function getTotalOrderByWeek() {
+					$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "order` WHERE order_status_id > '0' AND WEEK(date_added) = WEEK(NOW()) AND YEAR(date_added) = YEAR(NOW())");
+					return $query->row['total'];
+				}
+	
+				public function getTotalOrderByMonth() {
+					$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "order` WHERE order_status_id > '0' AND MONTH(date_added) = MONTH(NOW()) AND YEAR(date_added) = YEAR(NOW())");
+					return $query->row['total'];
+				}
+	
+				public function getTotalOrderByYear() {
+					$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "order` WHERE order_status_id > '0' AND YEAR(date_added) = YEAR(NOW()) AND YEAR(date_added) = YEAR(NOW())");
+					return $query->row['total'];
+				}
+			]]></add>
+		</operation>
+		
+		<operation error="skip"><search position="before"><![CDATA[public function getTotalOrdersByLanguageId]]></search>
+			<add><![CDATA[
+				public function getPendingOrders() {
+					$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "order` WHERE order_status_id =  '1'");
+					return $query->row['total'];
+				}
+			]]></add>
+		</operation>	
+	</file>
+
+		
+	
+	<!-- Call to new templates -->
+	<file name="admin/controller/common/*.php">
+		<operation error="skip">
+			<search position="replace"><![CDATA[$this->template = ']]></search>
+			<add><![CDATA[$this->template = 'flat-admin/]]></add>
+		</operation>
+	</file>
+	
+	
+	
+	<!-- User Group Permission -->
+	<file name="admin/view/template/user/user_group_form.tpl">
+		<operation error="skip">
+            <search position="replace" offset="16"><![CDATA[<td><?php echo $entry_access; ?></td>]]></search>
+            <add><![CDATA[
+			<td><?php echo $entry_access; ?></td>
+            <td><div class="scrollbox">
+                <?php $class = 'odd'; ?>
+                <?php foreach ($permissions as $permission) { ?>
+                <?php $class = ($class == 'even' ? 'odd' : 'even'); ?>
+                <div class="<?php echo $class; ?>">
+                  <?php if (in_array($permission, $access)) { ?>
+                  <input class="check-access" type="checkbox" name="permission[access][]" value="<?php echo $permission; ?>" checked="checked" />
+                  <?php echo $permission; ?>
+                  <?php } else { ?>
+                  <input class="check-access" type="checkbox" name="permission[access][]" value="<?php echo $permission; ?>" />
+                  <?php echo $permission; ?>
+                  <?php } ?>
+                </div>
+                <?php } ?>
+              </div>
+              <input type="checkbox" id="ckbCheckAllAccess" > <?php echo $text_select_all; ?> / <?php echo $text_unselect_all; ?></td>
+			
+			<script type="text/javascript" charset="utf-8">
+				$(document).ready(function() {
+				  $('#ckbCheckAllAccess')
+					.on('ifChecked', function() {
+						$('.check-access').iCheck('check');
+					})
+					.on('ifUnchecked', function() {
+						$('.check-access').iCheck('uncheck');
+					});
+				});
+			</script>
+			]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace" offset="16"><![CDATA[<td><?php echo $entry_modify; ?></td>]]></search>
+            <add><![CDATA[
+			<td><?php echo $entry_modify; ?></td>
+            <td><div class="scrollbox">
+                <?php $class = 'odd'; ?>
+                <?php foreach ($permissions as $permission) { ?>
+                <?php $class = ($class == 'even' ? 'odd' : 'even'); ?>
+                <div class="<?php echo $class; ?>">
+                  <?php if (in_array($permission, $modify)) { ?>
+                  <input class="check-access" type="checkbox" name="permission[modify][]" value="<?php echo $permission; ?>" checked="checked" />
+                  <?php echo $permission; ?>
+                  <?php } else { ?>
+                  <input class="check-access" type="checkbox" name="permission[modify][]" value="<?php echo $permission; ?>" />
+                  <?php echo $permission; ?>
+                  <?php } ?>
+                </div>
+                <?php } ?>
+              </div>
+			]]></add>
+        </operation>
+	</file>
+
+
+	
+	<!-- General -->
+	<file name="admin/view/template/*/*.tpl">
+		<operation error="skip">
+            <search position="before"><![CDATA[<div id="content">]]></search>
+            <add><![CDATA[
+			<aside class="right-side">
+			]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="before"><![CDATA[<?php echo $footer; ?>]]></search>
+            <add><![CDATA[
+			</aside>
+			]]></add>
+        </operation>	
+		<operation error="skip">
+			<search position="replace"><![CDATA[class="list"]]></search>
+			<add><![CDATA[class="table"]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[class="form"]]></search>
+			<add><![CDATA[class="table"]]></add>
+		</operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<div class="success"><?php echo $success; ?></div>]]></search>
+            <add><![CDATA[<div class="alert alert-success"><span class="glyphicon glyphicon-ok-circle"></span> <?php echo $success; ?></div>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<div class="success]]></search>
+            <add><![CDATA[<div class="alert alert-success]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<div class="warning">]]></search>
+            <add><![CDATA[<div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> ]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<div class="attention">]]></search>
+            <add><![CDATA[<div class="alert alert-warning attention"><span class="glyphicon glyphicon-warning-sign"></span> ]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<span class="error">]]></search>
+            <add><![CDATA[<span class="error alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> ]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<td width="1" style="text-align: center;"><input type="checkbox" onclick="$('input[name*=\'selected\']').attr('checked', this.checked);" /></td>]]></search>
+            <add><![CDATA[<td width="1" style="text-align: center;"></td>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<input type="checkbox"]]></search>
+            <add><![CDATA[<input class="check-access" type="checkbox"]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<td><textarea]]></search>
+            <add><![CDATA[<td style="width:90%"><textarea]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<td><select]]></search>
+            <add><![CDATA[<td style="width:60%"><select]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<td><input]]></search>
+            <add><![CDATA[<td style="width:60%"><input]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a class="button" onclick="editSearch();" id="btn_edit" style="display:none;"><?php echo $btn_edit_search; ?></a>]]></search>
+            <add><![CDATA[
+			 <a class="btn btn-default" onclick="editSearch();" id="btn_edit" style="display:none;"><span class="glyphicon glyphicon-search"></span> <?php echo $btn_edit_search; ?></a>
+			]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a class="button" onclick="doSearch();" id="btn_search"><?php echo $btn_search; ?></a>]]></search>
+            <add><![CDATA[
+			 <a class="btn btn-default" onclick="doSearch();" id="btn_search"><span class="glyphicon glyphicon-search"></span> <?php echo $btn_search; ?></a>
+			]]></add>
+        </operation>
+	</file>
+	
+	
+	
+	<!-- List Templates - General -->
+	<file name="admin/view/template/*/*_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[[ <a href="<?php echo $action['href']; ?>"><?php echo $action['text']; ?></a> ]]]></search>
+            <add><![CDATA[<a class="action-link" href="<?php echo $action['href']; ?>"><i class="ion-compose"></i> <?php echo $action['text']; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<div class="buttons"><a href="<?php echo $repair; ?>" class="button"><?php echo $button_repair; ?></a><a href="<?php echo $insert; ?>" class="button"><?php echo $button_insert; ?></a><a onclick="$('#form').submit();" class="button"><?php echo $button_delete; ?></a></div>]]></search>
+            <add><![CDATA[
+			<div class="buttons row button-group">
+				<div class="btn-group">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class=" glyphicon glyphicon-cog"></span> <?php echo $text_actions; ?> <span class="caret"></span></button>
+				<ul class="dropdown-menu" role="menu">
+				<li><a href="<?php echo $insert; ?>"><i class="ion-ios7-plus"></i> <?php echo $button_insert; ?></a></li>
+				<li class="divider"></li>
+				<li><a onclick="$('#form').submit();"><i class="ion-android-trash"></i> <?php echo $button_delete; ?></a></li>
+				</ul>
+				</div>
+			</div>
+			]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<div class="buttons"><a href="<?php echo $insert; ?>" class="button"><?php echo $button_insert; ?></a><a onclick="$('form').submit();" class="button"><?php echo $button_delete; ?></a></div>]]></search>
+            <add><![CDATA[
+			<div class="buttons row button-group">
+				<div class="btn-group">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class=" glyphicon glyphicon-cog"></span> <?php echo $text_actions; ?> <span class="caret"></span></button>
+				<ul class="dropdown-menu" role="menu">
+				<li><a href="<?php echo $insert; ?>"><i class="ion-ios7-plus"></i> <?php echo $button_insert; ?></a></li>
+				<li class="divider"></li>
+				<li><a onclick="$('#form').submit();"><i class="ion-android-trash"></i> <?php echo $button_delete; ?></a></li>
+				</ul>
+				</div>
+			</div>
+			]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<div class="buttons"><a href="<?php echo $insert; ?>" class="button"><?php echo $button_insert; ?></a><a onclick="document.getElementById('form').submit();" class="button"><?php echo $button_delete; ?></a></div>]]></search>
+            <add><![CDATA[
+			<div class="buttons row button-group">
+				<div class="btn-group">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class=" glyphicon glyphicon-cog"></span> <?php echo $text_actions; ?> <span class="caret"></span></button>
+				<ul class="dropdown-menu" role="menu">
+				<li><a href="<?php echo $insert; ?>"><i class="ion-ios7-plus"></i> <?php echo $button_insert; ?></a></li>
+				<li class="divider"></li>
+				<li><a onclick="document.getElementById('form').submit();"><i class="ion-android-trash"></i> <?php echo $button_delete; ?></a></li>
+				</ul>
+				</div>
+			</div>
+			]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<td width="1" style="text-align: center;"><input type="checkbox" onclick="$('input[name*=\'selected\']').attr('checked', this.checked);" /></td>]]></search>
+            <add><![CDATA[<td width="1" style="text-align: center;"></td>]]></add>
+        </operation>
+	</file>
+	
+	
+	
+	<!-- Product List Buttons -->
+	<file name="admin/view/template/*/product_list.tpl">
+		<operation error="skip">
+            <search position="before"><![CDATA[<li class="divider"></li>]]></search>
+            <add><![CDATA[<li><a onclick="$('#form').attr('action', '<?php echo $copy; ?>'); $('#form').submit();"><i class="ion-ios7-browsers"></i> <?php echo $button_copy; ?></a></li>]]></add>
+        </operation>
+	</file>
+	
+	
+	
+	<!-- Store Form -->
+	<file name="admin/view/template/setting/setting.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[width: 800]]></search>
+            <add><![CDATA[width: 95 + '%']]></add>
+        </operation>
+	</file>
+	
+	
+	
+	<!-- Form Templates - General -->
+	<file name="admin/view/template/*/*_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<div id="dialog"]]></search>
+            <add><![CDATA[<div id="dialog" class="embed-responsive embed-responsive-16by9"]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<iframe]]></search>
+            <add><![CDATA[<iframe class="embed-responsive-item" ]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[width: 800,]]></search>
+            <add><![CDATA[width: 95 + '%',]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[class="button"><?php echo $button_add_attribute; ?></a>]]></search>
+            <add><![CDATA[class="btn btn-info insert"><i class="ion-ios7-plus"></i> <?php echo $button_add_attribute; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[class="button"><?php echo $button_remove; ?></a>]]></search>
+            <add><![CDATA[class="btn btn-danger delete"><i class="ion-android-trash"></i> <?php echo $button_remove; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[class="button"><?php echo $button_add_option_value; ?></a>]]></search>
+            <add><![CDATA[class="btn btn-info insert"><i class="ion-ios7-plus"></i> <?php echo $button_add_option_value; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[class="button"><?php echo $button_add_profile ?></a>]]></search>
+            <add><![CDATA[class="btn btn-info insert"><i class="ion-ios7-plus"></i> <?php echo $button_add_profile ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a class="button" onclick="$('#profile-row<?php echo $profileCount ?>').remove()"><?php echo $button_remove ?></a>]]></search>
+            <add><![CDATA[<a class="btn btn-danger" onclick="$('#profile-row<?php echo $profileCount ?>').remove()"><i class="ion-android-trash"></i> <?php echo $button_remove ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a class="button" onclick="$(\'#profile-row' + profileCount + '\').remove()"><?php echo $button_remove ?></a>]]></search>
+            <add><![CDATA[<a class="btn btn-danger" onclick="$(\'#profile-row' + profileCount + '\').remove()"><i class="ion-android-trash"></i> <?php echo $button_remove ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[class="button"><?php echo $button_add_discount; ?>]]></search>
+            <add><![CDATA[class="btn btn-info insert"><i class="ion-ios7-plus"></i> <?php echo $button_add_discount; ?>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[class="button"><?php echo $button_add_special; ?>]]></search>
+            <add><![CDATA[class="btn btn-info insert"><i class="ion-ios7-plus"></i> <?php echo $button_add_special; ?>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[class="button"><?php echo $button_add_image; ?>]]></search>
+            <add><![CDATA[class="btn btn-info insert"><i class="ion-ios7-camera"></i> <?php echo $button_add_image; ?>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a onclick="$('#thumb').attr('src', '<?php echo $no_image; ?>'); $('#image').attr('value', '');"><?php echo $text_clear; ?></a>]]></search>
+            <add><![CDATA[<a class="btn btn-default" onclick="$('#thumb').attr('src', '<?php echo $no_image; ?>'); $('#image').attr('value', '');"><i class="ion-ios7-loop-strong"></i> <?php echo $text_clear; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a onclick="$('#thumb<?php echo $image_row; ?>').attr('src', '<?php echo $no_image; ?>'); $('#image<?php echo $image_row; ?>').attr('value', '');"><?php echo $text_clear; ?></a>]]></search>
+            <add><![CDATA[<a class="btn btn-default" onclick="$('#thumb<?php echo $image_row; ?>').attr('src', '<?php echo $no_image; ?>'); $('#image<?php echo $image_row; ?>').attr('value', '');"><i class="ion-ios7-loop-strong"></i> <?php echo $text_clear; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a onclick="$(\'#thumb' + image_row + '\').attr(\'src\', \'<?php echo $no_image; ?>\'); $(\'#image' + image_row + '\').attr(\'value\', \'\');"><?php echo $text_clear; ?></a>]]></search>
+            <add><![CDATA[<a class="btn btn-default" onclick="$(\'#thumb' + image_row + '\').attr(\'src\', \'<?php echo $no_image; ?>\'); $(\'#image' + image_row + '\').attr(\'value\', \'\');"><i class="ion-ios7-loop-strong"></i> <?php echo $text_clear; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a onclick="image_upload('image', 'thumb');"><?php echo $text_browse; ?></a>]]></search>
+            <add><![CDATA[<a class="btn btn-info" onclick="image_upload('image', 'thumb');"><i class="ion-image"></i> <?php echo $text_browse; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a onclick="image_upload(\'image' + option_value_row + '\', \'thumb' + option_value_row + '\');"><?php echo $text_browse; ?></a>]]></search>
+            <add><![CDATA[<a class="btn btn-info" onclick="image_upload(\'image' + option_value_row + '\', \'thumb' + option_value_row + '\');"><i class="ion-image"></i> <?php echo $text_browse; ?></a>]]></add>
+        </operation>
+		
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a onclick="$(\'#thumb' + option_value_row + '\').attr(\'src\', \'<?php echo $no_image; ?>\'); $(\'#image' + option_value_row + '\').attr(\'value\', \'\');"><?php echo $text_clear; ?></a>]]></search>
+            <add><![CDATA[<a class="btn btn-default" onclick="$(\'#thumb' + option_value_row + '\').attr(\'src\', \'<?php echo $no_image; ?>\'); $(\'#image' + option_value_row + '\').attr(\'value\', \'\');"><i class="ion-ios7-loop-strong"></i> <?php echo $text_clear; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a onclick="image_upload('image<?php echo $image_row; ?>', 'thumb<?php echo $image_row; ?>');"><?php echo $text_browse; ?></a>]]></search>
+            <add><![CDATA[<a class="btn btn-info" onclick="image_upload('image<?php echo $image_row; ?>', 'thumb<?php echo $image_row; ?>');"><i class="ion-image"></i> <?php echo $text_browse; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[class="button"><?php echo $button_add_filter; ?>]]></search>
+            <add><![CDATA[class="btn btn-info insert"><i class="ion-ios7-plus"></i>  <?php echo $button_add_filter; ?>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a onclick="$(\'#discount-row' + discount_row + '\').remove();" class="button"><?php echo $button_remove; ?></a>]]></search>
+            <add><![CDATA[<a onclick="$(\'#discount-row' + discount_row + '\').remove();" class="btn btn-danger"><i class="ion-android-trash"></i> <?php echo $button_remove; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a onclick="$(\'#special-row' + special_row + '\').remove();" class="button"><?php echo $button_remove; ?></a>]]></search>
+            <add><![CDATA[<a onclick="$(\'#special-row' + special_row + '\').remove();" class="btn btn-danger"><i class="ion-android-trash"></i> <?php echo $button_remove; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a onclick="image_upload('image<?php echo $option_value_row; ?>', 'thumb<?php echo $option_value_row; ?>');"><?php echo $text_browse; ?></a>]]></search>
+            <add><![CDATA[<a class="btn btn-info" onclick="image_upload('image<?php echo $option_value_row; ?>', 'thumb<?php echo $option_value_row; ?>');"><i class="ion-image"></i> <?php echo $text_browse; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a onclick="$('#thumb<?php echo $option_value_row; ?>').attr('src', '<?php echo $no_image; ?>'); $('#image<?php echo $option_value_row; ?>').attr('value', '');"><?php echo $text_clear; ?></a>]]></search>
+            <add><![CDATA[<a class="btn btn-default" onclick="$('#thumb<?php echo $option_value_row; ?>').attr('src', '<?php echo $no_image; ?>'); $('#image<?php echo $option_value_row; ?>').attr('value', '');"><i class="ion-ios7-loop-strong"></i> <?php echo $text_clear; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<div class="buttons"><a onclick="$('#form').submit();" class="button"><?php echo $button_save; ?></a><a href="<?php echo $cancel; ?>" class="button"><?php echo $button_cancel; ?></a></div>]]></search>
+            <add><![CDATA[<div class="buttons row button-group">
+					<div class="btn-group">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class=" glyphicon glyphicon-cog"></span> <?php echo $text_actions; ?> <span class="caret"></span></button>
+					<ul class="dropdown-menu" role="menu">
+					<li><a onclick="$('#form').submit();"><i class="ion-checkmark-circled"></i> <?php echo $button_save; ?></a></li>
+					<li class="divider"></li>
+					<li><a href="<?php echo $cancel; ?>"><i class="ion-ios7-undo"></i> <?php echo $button_cancel; ?></a></li>
+					</ul>
+					</div>
+				</div>]]></add>
+        </operation>
+	</file>
+	
+	
+	
+	<!-- Sales Order Buttons -->
+	<file name="admin/view/template/sale/order_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<div class="buttons"><a onclick="$('#form').attr('action', '<?php echo $invoice; ?>'); $('#form').attr('target', '_blank'); $('#form').submit();" class="button"><?php echo $button_invoice; ?></a><a href="<?php echo $insert; ?>" class="button"><?php echo $button_insert; ?></a><a onclick="$('#form').attr('action', '<?php echo $delete; ?>'); $('#form').attr('target', '_self'); $('#form').submit();" class="button"><?php echo $button_delete; ?></a></div>]]></search>
+            <add><![CDATA[
+			<div class="buttons row button-group">
+					<div class="btn-group">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class=" glyphicon glyphicon-cog"></span> <?php echo $text_actions; ?> <span class="caret"></span></button>
+					<ul class="dropdown-menu" role="menu">
+					<li><a onclick="$('#form').attr('action', '<?php echo $invoice; ?>'); $('#form').attr('target', '_blank'); $('#form').submit();"><i class="ion-printer"></i> <?php echo $button_invoice; ?></a></li>
+					<li><a href="<?php echo $insert; ?>"><i class="ion-ios7-plus"></i> <?php echo $button_insert; ?></a></li>
+					<li class="divider"></li>
+					<li><a onclick="$('#form').attr('action', '<?php echo $delete; ?>'); $('#form').attr('target', '_self'); $('#form').submit();"><i class="ion-android-trash"></i> <?php echo $button_delete; ?></a></li>
+					</ul>
+					</div>
+				</div>
+			]]></add>
+        </operation>
+	</file>
+	
+	
+	
+	<!-- Sales Return Info -->
+	<file name="admin/view/template/sale/return_info.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<div class="buttons"><a href="<?php echo $cancel; ?>" class="button"><?php echo $button_cancel; ?></a></div>]]></search>
+            <add><![CDATA[
+				<div class="buttons row button-group">
+					<div class="btn-group">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class=" glyphicon glyphicon-cog"></span> <?php echo $text_actions; ?> <span class="caret"></span></button>
+					<ul class="dropdown-menu" role="menu">
+					<li><a href="<?php echo $cancel; ?>"><i class="ion-ios7-undo"></i> <?php echo $button_cancel; ?></a></li>
+					</ul>
+					</div>
+				</div>
+		]]></add>
+		</operation>
+	</file>
+	
+
+	
+	<!-- Sales Order Info -->
+	<file name="admin/view/template/sale/order_info.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<div class="buttons"><a href="<?php echo $invoice; ?>" target="_blank" class="button"><?php echo $button_invoice; ?></a><a href="<?php echo $cancel; ?>" class="button"><?php echo $button_cancel; ?></a></div>]]></search>
+            <add><![CDATA[
+				<div class="buttons row button-group">
+					<div class="btn-group">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class=" glyphicon glyphicon-cog"></span> <?php echo $text_actions; ?> <span class="caret"></span></button>
+					<ul class="dropdown-menu" role="menu">
+					<li><a href="<?php echo $invoice; ?>"><i class="ion-printer"></i> <?php echo $button_invoice; ?></a></li>
+					<li class="divider"></li>
+					<li><a href="<?php echo $cancel; ?>"><i class="ion-ios7-undo"></i> <?php echo $button_cancel; ?></a></li>
+					</ul>
+					</div>
+				</div>
+		]]></add>
+		</operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<span id="invoice"><b>[</b> <a id="invoice-generate"><?php echo $text_generate; ?></a> <b>]</b></span>]]></search>
+            <add><![CDATA[<span id="invoice"><a class="btn btn-info" id="invoice-generate"><i class="ion-document"></i> <?php echo $text_generate; ?></a></span>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a id="button-history" class="button"><?php echo $button_add_history; ?></a>]]></search>
+            <add><![CDATA[<a id="button-history" class="btn btn-info"><i class="ion-clipboard"></i> <?php echo $button_add_history; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<span id="reward"><b>[</b> <a id="reward-add"><?php echo $text_reward_add; ?></a> <b>]</b></span>]]></search>
+            <add><![CDATA[<span id="reward"><a id="reward-add" class="btn btn-info"><i class="ion-android-star"></i> <?php echo $text_reward_add; ?></a></span>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<span id="reward"><b>[</b> <a id="reward-remove"><?php echo $text_reward_remove; ?></a> <b>]</b></span>]]></search>
+            <add><![CDATA[<span id="reward"><a id="reward-remove" class="btn btn-info"><i class="ion-ios7-minus"></i> <?php echo $text_reward_remove; ?></a></span>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[$('#reward').html('<b>[</b> <a id="reward-add"><?php echo $text_reward_add; ?></a> <b>]</b>');]]></search>
+            <add><![CDATA[$('#reward').html('<a id="reward-add" class="btn btn-info"><i class="ion-android-star"></i> <?php echo $text_reward_add; ?></a>');]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[$('#reward').html('<b>[</b> <a id="reward-remove"><?php echo $text_reward_remove; ?></a> <b>]</b>');]]></search>
+            <add><![CDATA[$('#reward').html('<span id="reward"><a id="reward-remove" class="btn btn-info"><i class="ion-ios7-minus"></i> <?php echo $text_reward_remove; ?></a></span>');]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<span id="commission"><b>[</b> <a id="commission-add"><?php echo $text_commission_add; ?></a> <b>]</b></span>]]></search>
+            <add><![CDATA[<span id="commission"><a id="commission-add" class="btn btn-info"><i class="ion-cash"></i> <?php echo $text_commission_add; ?></a></span>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<span id="commission"><b>[</b> <a id="commission-remove"><?php echo $text_commission_remove; ?></a> <b>]</b></span>]]></search>
+            <add><![CDATA[<span id="commission"><a id="commission-remove" class="btn btn-info"><i class="ion-ios7-minus"></i> <?php echo $text_commission_remove; ?></a></span>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[$('#commission').html('<b>[</b> <a id="commission-remove"><?php echo $text_commission_remove; ?></a> <b>]</b>');]]></search>
+            <add><![CDATA[$('#commission').html('<a id="commission-remove" class="btn btn-info"><i class="ion-ios7-minus"></i> <?php echo $text_commission_remove; ?></a>');]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[$('#commission').html('<b>[</b> <a id="commission-add"><?php echo $text_commission_add; ?></a> <b>]</b>');]]></search>
+            <add><![CDATA[$('#commission').html('<a id="commission-add" class="btn btn-info"><i class="ion-cash"></i> <?php echo $text_commission_add; ?></a>');]]></add>
+        </operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[<tbody>]]></search>
+			<add><![CDATA[]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[<?php foreach ($products as $product) { ?>]]></search>
+			<add><![CDATA[
+			<?php foreach ($products as $product) { ?>
+				<?php $productimg = $this->db->query("SELECT * FROM " . DB_PREFIX . "product WHERE product_id = '" . ($product['product_id'] . "'"));?>
+				<tbody id="product-row<?php echo $product['order_product_id']; ?>">
+			]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[<td class="left"><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a>]]></search>
+			<add><![CDATA[
+			<td><div class="product-cover"><a href="<?php echo $product['href']; ?>"><img src="<?php echo HTTPS_CATALOG."image/".$productimg->row['image']; ?>" alt="<?php echo $product['name']; ?>" /><br><?php echo $product['name']; ?></a></div>]]></add>
+		</operation>
+	</file>
+	
+	
+	
+	<!-- Sales Customers -->
+	<file name="admin/view/template/sale/customer_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<div class="buttons"><a onclick="$('form').attr('action', '<?php echo $approve; ?>'); $('form').submit();" class="button"><?php echo $button_approve; ?></a><a href="<?php echo $insert; ?>" class="button"><?php echo $button_insert; ?></a><a onclick="$('form').attr('action', '<?php echo $delete; ?>'); $('form').submit();" class="button"><?php echo $button_delete; ?></a></div>]]></search>
+            <add><![CDATA[
+				<div class="buttons row button-group">
+					<div class="btn-group">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class=" glyphicon glyphicon-cog"></span> <?php echo $text_actions; ?> <span class="caret"></span></button>
+					<ul class="dropdown-menu" role="menu">
+					<li><a onclick="$('form').attr('action', '<?php echo $approve; ?>'); $('form').submit();"><span class="glyphicon glyphicon-ok-circle"></span> <?php echo $button_approve; ?></a></li>
+					<li><a href="<?php echo $insert; ?>"><span class="glyphicon glyphicon-plus"></span> <?php echo $button_insert; ?></a></li>
+					<li><a onclick="$('form').attr('action', '<?php echo $delete; ?>'); $('form').submit();"><span class="glyphicon glyphicon-minus"></span> <?php echo $button_delete; ?></a></li>
+					</ul>
+					</div>
+				</div>
+		]]></add>
+		</operation>
+	</file>
+	
+	
+	
+	<!-- Sales Affiliates -->
+	<file name="admin/view/template/sale/affiliate_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<div class="buttons"><a onclick="$('form').attr('action', '<?php echo $approve; ?>'); $('form').submit();" class="button"><?php echo $button_approve; ?></a><a href="<?php echo $insert; ?>" class="button"><?php echo $button_insert; ?></a><a onclick="$('form').attr('action', '<?php echo $delete; ?>'); $('form').submit();" class="button"><?php echo $button_delete; ?></a></div>]]></search>
+            <add><![CDATA[
+				<div class="buttons row button-group">
+					<div class="btn-group">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class=" glyphicon glyphicon-cog"></span> <?php echo $text_actions; ?> <span class="caret"></span></button>
+					<ul class="dropdown-menu" role="menu">
+					<li><a onclick="$('form').attr('action', '<?php echo $approve; ?>'); $('form').submit();"><span class="glyphicon glyphicon-ok-circle"></span> <?php echo $button_approve; ?></a></li>
+					<li><a href="<?php echo $insert; ?>"><span class="glyphicon glyphicon-plus"></span> <?php echo $button_insert; ?></a></li>
+					<li><a onclick="$('form').attr('action', '<?php echo $delete; ?>'); $('form').submit();"><span class="glyphicon glyphicon-minus"></span> <?php echo $button_delete; ?></a></li>
+					</ul>
+					</div>
+				</div>
+		]]></add>
+		</operation>
+	</file>
+	
+	
+	
+	<!-- Sales Contact -->
+	<file name="admin/view/template/sale/contact.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<div class="buttons"><a id="button-send" onclick="send('index.php?route=sale/contact/send&token=<?php echo $token; ?>');" class="button"><?php echo $button_send; ?></a><a href="<?php echo $cancel; ?>" class="button"><?php echo $button_cancel; ?></a></div>]]></search>
+            <add><![CDATA[
+				<div class="buttons row button-group">
+					<div class="btn-group">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class=" glyphicon glyphicon-cog"></span> <?php echo $text_actions; ?> <span class="caret"></span></button>
+					<ul class="dropdown-menu" role="menu">
+					<li><a id="button-send" onclick="send('index.php?route=sale/contact/send&token=<?php echo $token; ?>');" ><i class="ion-android-mail"></i> <?php echo $button_send; ?></a></li>
+					<li class="divider"></li>
+					<li><a href="<?php echo $cancel; ?>"><i class="ion-ios7-undo"></i> <?php echo $button_cancel; ?></a></li>
+					</ul>
+					</div>
+				</div>
+		]]></add>
+		</operation>
+	</file>
+	
+
+	
+	<!-- All the other Buttons -->
+	<file name="admin/view/template/*/*.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<div class="buttons"><a onclick="$('#form').submit();" class="button"><?php echo $button_save; ?></a><a href="<?php echo $cancel; ?>" class="button"><?php echo $button_cancel; ?></a></div>]]></search>
+            <add><![CDATA[<div class="buttons row button-group">
+					<div class="btn-group">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class=" glyphicon glyphicon-cog"></span> <?php echo $text_actions; ?> <span class="caret"></span></button>
+					<ul class="dropdown-menu" role="menu">
+					<li><a onclick="$('#form').submit();"><i class="ion-checkmark-circled"></i> <?php echo $button_save; ?></a></li>
+					<li class="divider"></li>
+					<li><a href="<?php echo $cancel; ?>"><i class="ion-ios7-undo"></i> <?php echo $button_cancel; ?></a></li>
+					</ul>
+					</div>
+				</div>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<div class="buttons"><a onclick="$('#form').submit();" class="button"><?php echo $button_save; ?></a><a onclick="location = '<?php echo $cancel; ?>';" class="button"><?php echo $button_cancel; ?></a></div>]]></search>
+            <add><![CDATA[<div class="buttons row button-group">
+					<div class="btn-group">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class=" glyphicon glyphicon-cog"></span> <?php echo $text_actions; ?> <span class="caret"></span></button>
+					<ul class="dropdown-menu" role="menu">
+					<li><a onclick="$('#form').submit();"><i class="ion-checkmark-circled"></i> <?php echo $button_save; ?></a></li>
+					<li class="divider"></li>
+					<li><a href="<?php echo $cancel; ?>"><i class="ion-ios7-undo"></i> <?php echo $button_cancel; ?></a></li>
+					</ul>
+					</div>
+				</div>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<div class="buttons"><a onclick="location='<?php echo $insert; ?>'" class="button"><span><?php echo $button_insert; ?></span></a><a onclick="$('form').submit();" class="button"><span><?php echo $button_delete; ?></span></a></div>]]></search>
+            <add><![CDATA[<div class="buttons row button-group">
+					<div class="btn-group">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class=" glyphicon glyphicon-cog"></span> <?php echo $text_actions; ?> <span class="caret"></span></button>
+					<ul class="dropdown-menu" role="menu">
+					<li><a onclick="location='<?php echo $insert; ?>'"><i class="ion-checkmark-circled"></i> <?php echo $button_insert; ?></a></li>
+					<li class="divider"></li>
+					<li><a onclick="$('form').submit();"><i class="ion-ios7-undo"></i> <?php echo $button_delete; ?></a></li>
+					</ul>
+					</div>
+				</div>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<table class="table">]]></search>
+            <add><![CDATA[<table class="table table-bordered-row">]]></add>
+        </operation>
+	</file>
+	
+	
+	
+	<!-- Pagination -->
+	<file name="system/library/pagination.php">
+		<operation>
+			<search position="replace"><![CDATA[public $style_links = 'links';]]></search>
+			<add><![CDATA[public $style_links = 'btn-toolbar';]]></add>
+		</operation>
+		<operation>
+			<search position="replace"><![CDATA[<a href]]></search>
+			<add><![CDATA[<a class="btn btn-default" href]]></add>
+		</operation>
+		<operation>
+			<search position="replace"><![CDATA[$output .= ' <b>' . $i . '</b> ';]]></search>
+			<add><![CDATA[$output .= ' <a class="btn btn-info">' . $i . '</a> ';]]></add>
+		</operation>
+	</file>
+	
+	
+	
+	<!-- Category List with Thumbnails -->
+	<file name="admin/controller/catalog/category.php">
+		<operation error="skip">
+			<search position="before"><![CDATA[$action = array();]]></search>
+			<add><![CDATA[$this->load->model('tool/image');
+                        $cat_img_query = $this->db->query("SELECT image FROM " . DB_PREFIX . "category WHERE category_id = '" . (int)$result['category_id'] . "'");
+                        foreach ($cat_img_query->rows as $query) { 
+                                 $image = $query['image']; 
+                        }
+                        if (!empty($image) && $image && file_exists(DIR_IMAGE . $image)) {
+						$thumb = $this->model_tool_image->resize($image, 120, 120);
+						} else {
+						$thumb = $this->model_tool_image->resize('no_image.jpg', 40, 40);
+			}]]></add>
+		</operation>
+		<operation>
+			<search position="after"><![CDATA[$this->data['categories'][] = array(]]></search>
+			<add><![CDATA['image' => $thumb,]]></add>
+		</operation>	
+		<operation>
+			<search position="before"><![CDATA[$this->data['column_name'] = $this->language->get('column_name');]]></search>
+			<add><![CDATA[$this->data['column_image'] = $this->language->get('column_image');]]></add>
+		</operation>	
+	</file>
+	
+	<file name="admin/view/template/catalog/category_list.tpl">
+		<operation error="skip">
+			<search position="before"><![CDATA[<td class="left"><?php echo $column_name; ?></td>]]></search>
+			<add><![CDATA[<td class="center"><?php echo $column_image; ?></td>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[<td class="left"><?php echo $category['name']; ?></td>]]></search>
+			<add><![CDATA[<td class="center"><img class="cover" src="<?php echo $category['image']; ?>" alt="<?php echo $category['name']; ?>" title="<?php echo $category['name']; ?>" /></td>]]></add>
+		</operation>
+	</file>
+	
+	
+	
+	<!-- Product Images -->
+	<file name="admin/controller/catalog/product.php">
+        <operation error="skip">
+            <search position="replace"><![CDATA[$image = $this->model_tool_image->resize($result['image'], 40, 40);]]></search>
+            <add><![CDATA[$image = $this->model_tool_image->resize($result['image'], 120, 120);]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/catalog/product_list.tpl">
+		<operation error="skip">
+			<search position="replace"><![CDATA[<td class="center"><img src="<?php echo $product['image']; ?>" alt="<?php echo $product['name']; ?>" style="padding: 1px; border: 1px solid #DDDDDD;" /></td>]]></search>
+			<add><![CDATA[<td class="center"><img class="cover" src="<?php echo $product['image']; ?>" alt="<?php echo $product['name']; ?>" /></td>]]></add>
+		</operation>
+	</file>
+	
+	
+	
+	<!-- Module: Welcome -->
+	<file name="admin/view/template/module/welcome.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<div id="language-<?php echo $module_row; ?>" class="htabs">]]></search>
+            <add><![CDATA[<div id="language-<?php echo $module_row; ?>" class="htabs welcome-tabs">]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<div id="language-' + module_row + '" class="htabs">';]]></search>
+            <add><![CDATA[<div id="language-' + module_row + '" class="htabs welcome-tabs">';]]></add>
+        </operation>
+	</file>
+	
+	
+	
+	<!-- Modules Languages Tab -->
+	<file name="admin/view/template/*/*.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<div id="language-<?php echo $module_row; ?>" class="htabs">]]></search>
+            <add><![CDATA[<div id="language-<?php echo $module_row; ?>" class="htabs welcome-tabs">]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<div id="language-' + module_row + '" class="htabs">';]]></search>
+            <add><![CDATA[<div id="language-' + module_row + '" class="htabs welcome-tabs">';]]></add>
+        </operation>
+	</file>
+	
+	
+	
+	<!-- List Module -->
+	<file name="admin/view/template/extension/*.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[[ <a href="<?php echo $action['href']; ?>"><?php echo $action['text']; ?></a> ]]]></search>
+            <add><![CDATA[<a class="action-link" href="<?php echo $action['href']; ?>"><i class="ion-compose"></i> <?php echo $action['text']; ?></a>]]></add>
+        </operation>
+	</file>
+	
+	
+	
+	<!-- Shipping: USPS -->
+	<file name="admin/view/template/shipping/usps.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<input type="checkbox" id="ckbCheckAllAccess" > <?php echo $text_select_all; ?> / <?php echo $text_unselect_all; ?>]]></search>
+            <add><![CDATA[]]></add>
+        </operation>
+	</file>
+	
+
+	
+	<!-- Store List -->
+	<file name="admin/view/template/*/store_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<td width="1" style="text-align: center;"><input type="checkbox" onclick="$('input[name*=\'selected\']').attr('checked', this.checked);" /></td>]]></search>
+            <add><![CDATA[<td width="1" style="text-align: center;"></td>]]></add>
+        </operation>
+	</file>
+	
+	
+	
+	<!-- Voucher List -->
+	<file name="admin/view/template/sale/voucher_list.tpl">
+		<operation error="skip">
+			<search position="replace"><![CDATA[[ <a onclick="sendVoucher('<?php echo $voucher['voucher_id']; ?>');"><?php echo $text_send; ?></a> ]]]></search>
+			<add><![CDATA[<a class="btn btn-info btn-sm" onclick="sendVoucher('<?php echo $voucher['voucher_id']; ?>');"><i class="ion-android-mail"></i> <?php echo $text_send; ?></a>]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace" offset="2"><![CDATA[$('.success, .warning').remove();]]></search>
+			<add><![CDATA[$('.alert-success, .alert-danger').remove();
+			$('.button-group').after('<div class="alert alert-warning" role="alert"><img src="view/image/loading.gif" alt="" /> <?php echo $text_wait; ?></div>');
+			},]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[$('.attention').remove();]]></search>
+			<add><![CDATA[$('.alert-warning').remove();]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[$('.box').before('<div class="warning">' + json['error'] + '</div>');]]></search>
+			<add><![CDATA[$('.button-group').after('<div class="alert alert-danger" role="alert">' + json['error'] + '</div>');]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="replace"><![CDATA[$('.box').before('<div class="success">' + json['success'] + '</div>');]]></search>
+			<add><![CDATA[$('.button-group').after('<div class="alert alert-success" role="alert">' + json['success'] + '</div>');]]></add>
+		</operation>
+	</file>
+
+	
+	
+	<!-- System > Store Form -->
+	<file name="admin/view/template/setting/store_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a onclick="image_upload('logo', 'thumb-logo');"><?php echo $text_browse; ?></a>]]></search>
+            <add><![CDATA[<a class="btn btn-info" onclick="image_upload('logo', 'thumb-logo');"><i class="ion-image"></i> <?php echo $text_browse; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a onclick="$('#thumb-logo').attr('src', '<?php echo $no_image; ?>'); $('#logo').attr('value', '');"><?php echo $text_clear; ?></a>]]></search>
+            <add><![CDATA[<a class="btn btn-default" onclick="$('#thumb-logo').attr('src', '<?php echo $no_image; ?>'); $('#logo').attr('value', '');"><i class="ion-ios7-loop-strong"></i> <?php echo $text_clear; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a onclick="image_upload('icon', 'thumb-icon');"><?php echo $text_browse; ?></a>]]></search>
+            <add><![CDATA[<a class="btn btn-info" onclick="image_upload('icon', 'thumb-icon');"><i class="ion-image"></i> <?php echo $text_browse; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a onclick="$('#thumb-icon').attr('src', '<?php echo $no_image; ?>'); $('#icon').attr('value', '');"><?php echo $text_clear; ?></a>]]></search>
+            <add><![CDATA[<a class="btn btn-default" onclick="$('#thumb-icon').attr('src', '<?php echo $no_image; ?>'); $('#icon').attr('value', '');"><i class="ion-ios7-loop-strong"></i> <?php echo $text_clear; ?></a>]]></add>
+        </operation>
+	</file>
+	
+	
+	
+	<!-- Sale Customer Form -->
+	<file name="admin/view/template/sale/customer_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a id="button-history" class="button"><span><?php echo $button_add_history; ?></span></a>]]></search>
+            <add><![CDATA[<a id="button-history" class="btn btn-info"><i class="ion-checkmark-circled"></i> <?php echo $button_add_history; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a id="button-transaction" class="button" onclick="addTransaction();"><span><?php echo $button_add_transaction; ?></span></a>]]></search>
+            <add><![CDATA[<a id="button-transaction" class="btn btn-info" onclick="addTransaction();"><i class="ion-checkmark-circled"></i> <?php echo $button_add_transaction; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a id="button-reward" class="button" onclick="addRewardPoints();"><span><?php echo $button_add_reward; ?></span></a>]]></search>
+            <add><![CDATA[<a id="button-reward" class="btn btn-info" onclick="addRewardPoints();"><i class="ion-checkmark-circled"></i> <?php echo $button_add_reward; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<b>[</b> <a id="<?php echo str_replace('.', '-', $ip['ip']); ?>" onclick="removeBanIP('<?php echo $ip['ip']; ?>');"><?php echo $text_remove_ban_ip; ?></a> <b>]</b>]]></search>
+            <add><![CDATA[<a class="btn btn-danger" id="<?php echo str_replace('.', '-', $ip['ip']); ?>" onclick="removeBanIP('<?php echo $ip['ip']; ?>');"><i class="ion-happy"></i> <?php echo $text_remove_ban_ip; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[$('#' + id).replaceWith('<a id="' + id + '" onclick="removeBanIP(\'' + ip + '\');"><?php echo $text_remove_ban_ip; ?></a>');]]></search>
+            <add><![CDATA[$('#' + id).replaceWith('<a class="btn btn-danger" id="' + id + '" onclick="removeBanIP(\'' + ip + '\');"><i class="ion-happy"></i> <?php echo $text_remove_ban_ip; ?></a>');]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<b>[</b> <a id="<?php echo str_replace('.', '-', $ip['ip']); ?>" onclick="addBanIP('<?php echo $ip['ip']; ?>');"><?php echo $text_add_ban_ip; ?></a> <b>]</b>]]></search>
+            <add><![CDATA[<a class="btn btn-info" id="<?php echo str_replace('.', '-', $ip['ip']); ?>" onclick="addBanIP('<?php echo $ip['ip']; ?>');"><i class="ion-android-hand"></i> <?php echo $text_add_ban_ip; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[$('#' + id).replaceWith('<a id="' + id + '" onclick="addBanIP(\'' + ip + '\');"><?php echo $text_add_ban_ip; ?></a>');]]></search>
+            <add><![CDATA[$('#' + id).replaceWith('<a class="btn btn-info" id="' + id + '" onclick="addBanIP(\'' + ip + '\');"><i class="ion-android-hand"></i> <?php echo $text_add_ban_ip; ?></a>');]]></add>
+        </operation>
+	</file>
+
+	
+	
+	<!-- Sale Return Info -->
+	<file name="admin/view/template/sale/return_info.tpl">
+		<operation error="skip">
+            <search position="replace" offset="8"><![CDATA[<td><?php echo $entry_comment; ?></td>]]></search>
+            <add><![CDATA[<td><?php echo $entry_comment; ?></td>
+			<td><textarea name="comment" cols="40" rows="8" style="width: 99%"></textarea>
+              <div style="margin-top: 10px; text-align: right;"><a onclick="history();" id="button-history" class="btn btn-info"><i class="ion-clipboard"></i> <?php echo $button_add_history; ?></a></div></td>
+          </tr>
+        </table>
+		</div>
+				</section>
+			</aside>
+		</div>
+			]]></add>
+        </operation>
+	</file>
+	
+	
+	
+	<!-- Other Buttons -->
+	<file name="admin/view/template/*/*.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a onclick="$('#module-row<?php echo $module_row; ?>').remove();" class="button"><?php echo $button_remove; ?></a>]]></search>
+            <add><![CDATA[<a class="btn btn-danger" onclick="$('#module-row<?php echo $module_row; ?>').remove();"><i class="ion-android-trash"></i> <?php echo $button_remove; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a onclick="$(\'#module-row' + module_row + '\').remove();" class="button"><?php echo $button_remove; ?></a>]]></search>
+            <add><![CDATA[<a class="btn btn-danger" onclick="$(\'#module-row' + module_row + '\').remove();"><i class="ion-android-trash"></i> <?php echo $button_remove; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a onclick="addModule();" class="button"><?php echo $button_add_module; ?></a>]]></search>
+            <add><![CDATA[<a class="btn btn-info" onclick="addModule();"><i class="ion-ios7-plus"></i> <?php echo $button_add_module; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a onclick="addRoute();" class="button"><?php echo $button_add_route; ?></a>]]></search>
+            <add><![CDATA[<a class="btn btn-info" onclick="addRoute();"><i class="ion-ios7-plus"></i> <?php echo $button_add_route; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a onclick="addImage();" class="button"><?php echo $button_add_banner; ?></a>]]></search>
+            <add><![CDATA[<a class="btn btn-info" onclick="addImage();"><i class="ion-ios7-plus"></i> <?php echo $button_add_banner; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a onclick="image_upload(\'image' + image_row + '\', \'thumb' + image_row + '\');"><?php echo $text_browse; ?></a>]]></search>
+            <add><![CDATA[<a class="btn btn-info" onclick="image_upload(\'image' + image_row + '\', \'thumb' + image_row + '\');"><i class="ion-image"></i> <?php echo $text_browse; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a onclick="addGeoZone();" class="button"><?php echo $button_add_geo_zone; ?></a>]]></search>
+            <add><![CDATA[<a class="btn btn-info" onclick="addGeoZone();"><i class="ion-ios7-plus"></i> <?php echo $button_add_geo_zone; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a onclick="addRule();" class="button"><?php echo $button_add_rule; ?></a>]]></search>
+            <add><![CDATA[<a class="btn btn-info" onclick="addRule();"><i class="ion-ios7-plus"></i> <?php echo $button_add_rule; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a onclick="filter()" class="button"><?php echo $text_filter ?></a>]]></search>
+            <add><![CDATA[<a class="btn btn-default" onclick="filter()"><i class="ion-funnel"></i> <?php echo $text_filter ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a onclick="filter();" class="button"><?php echo $button_filter; ?></a>]]></search>
+            <add><![CDATA[<a class="btn btn-default" onclick="filter();"><i class="ion-funnel"></i> <?php echo $button_filter ?></a>]]></add>
+        </operation>
+	</file>
+
+	
+	
+	<!-- Category List Buttons -->
+	<file name="admin/view/template/*/category_list.tpl">
+		<operation error="skip">
+            <search position="before"><![CDATA[<li class="divider"></li>]]></search>
+            <add><![CDATA[<li><a href="<?php echo $repair; ?>"><i class="ion-hammer"></i> <?php echo $button_repair; ?></a></li>]]></add>
+        </operation>
+	</file>
+	
+	
+
+	<!-- Amazon Checkout Buttons -->
+	<file name="admin/view/template/payment/amazon_checkout.tpl">
+		<operation error="skip">
+            <search position="replace" offset="3"><![CDATA[<div class="buttons">]]></search>
+            <add><![CDATA[
+			<div class="buttons row button-group">
+					<div class="btn-group">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class=" glyphicon glyphicon-cog"></span> <?php echo $text_actions; ?> <span class="caret"></span></button>
+					<ul class="dropdown-menu" role="menu">
+					<li><a onclick="$('#form').submit();"><i class="ion-checkmark-circled"></i> <?php echo $button_save; ?></a></li>
+					<li class="divider"></li>
+					<li><a href="<?php echo $cancel; ?>"><i class="ion-ios7-undo"></i> <?php echo $button_cancel; ?></a></li>
+					</ul>
+					</div>
+				</div>
+			]]></add>
+        </operation>
+	</file>
+	
+	
+	
+	<!-- PayPal Payflow Pro iFrame Buttons -->
+	<file name="admin/view/template/payment/pp_payflow_iframe.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<div class="buttons"><a onclick="$('#form').submit();" class="button"><?php echo $button_save; ?></a><a onclick="location = '<?php echo $cancel; ?>';" class="button"><?php echo $button_cancel; ?></a></div>]]></search>
+            <add><![CDATA[
+			<div class="buttons row button-group">
+					<div class="btn-group">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class=" glyphicon glyphicon-cog"></span> <?php echo $text_actions; ?> <span class="caret"></span></button>
+					<ul class="dropdown-menu" role="menu">
+					<li><a onclick="$('#form').submit();"><i class="ion-checkmark-circled"></i> <?php echo $button_save; ?></a></li>
+					<li class="divider"></li>
+					<li><a href="<?php echo $cancel; ?>"><i class="ion-ios7-undo"></i> <?php echo $button_cancel; ?></a></li>
+					</ul>
+					</div>
+				</div>
+			]]></add>
+        </operation>
+	</file>
+	
+	
+	
+	<!-- PayPal Website Payment Pro iFrame Buttons -->
+	<file name="admin/view/template/payment/pp_pro_iframe.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<div class="buttons"><a onclick="$('#form').submit();" class="button"><?php echo $button_save; ?></a><a onclick="location = '<?php echo $cancel; ?>';" class="button"><?php echo $button_cancel; ?></a></div>]]></search>
+            <add><![CDATA[
+			<div class="buttons row button-group">
+					<div class="btn-group">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class=" glyphicon glyphicon-cog"></span> <?php echo $text_actions; ?> <span class="caret"></span></button>
+					<ul class="dropdown-menu" role="menu">
+					<li><a onclick="$('#form').submit();"><i class="ion-checkmark-circled"></i> <?php echo $button_save; ?></a></li>
+					<li class="divider"></li>
+					<li><a href="<?php echo $cancel; ?>"><i class="ion-ios7-undo"></i> <?php echo $button_cancel; ?></a></li>
+					</ul>
+					</div>
+				</div>
+			]]></add>
+        </operation>
+	</file>
+	
+	
+	
+	<!-- PayPal Payments Pro Payflow Edition Buttons -->
+	<file name="admin/view/template/payment/pp_pro_pf.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<div class="buttons"><a onclick="$('#form').submit();" class="button"><?php echo $button_save; ?></a><a onclick="location = '<?php echo $cancel; ?>';" class="button"><?php echo $button_cancel; ?></a></div>]]></search>
+            <add><![CDATA[
+			<div class="buttons row button-group">
+					<div class="btn-group">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class=" glyphicon glyphicon-cog"></span> <?php echo $text_actions; ?> <span class="caret"></span></button>
+					<ul class="dropdown-menu" role="menu">
+					<li><a onclick="$('#form').submit();"><i class="ion-checkmark-circled"></i> <?php echo $button_save; ?></a></li>
+					<li class="divider"></li>
+					<li><a href="<?php echo $cancel; ?>"><i class="ion-ios7-undo"></i> <?php echo $button_cancel; ?></a></li>
+					</ul>
+					</div>
+				</div>
+			]]></add>
+        </operation>
+	</file>
+	
+	
+	
+	<!-- PayPal Payments Pro Payflow Edition Buttons -->
+	<file name="admin/view/template/payment/pp_pro_uk.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<div class="buttons"><a onclick="$('#form').submit();" class="button"><?php echo $button_save; ?></a><a onclick="location = '<?php echo $cancel; ?>';" class="button"><?php echo $button_cancel; ?></a></div>]]></search>
+            <add><![CDATA[
+			<div class="buttons row button-group">
+					<div class="btn-group">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class=" glyphicon glyphicon-cog"></span> <?php echo $text_actions; ?> <span class="caret"></span></button>
+					<ul class="dropdown-menu" role="menu">
+					<li><a onclick="$('#form').submit();"><i class="ion-checkmark-circled"></i> <?php echo $button_save; ?></a></li>
+					<li class="divider"></li>
+					<li><a href="<?php echo $cancel; ?>"><i class="ion-ios7-undo"></i> <?php echo $button_cancel; ?></a></li>
+					</ul>
+					</div>
+				</div>
+			]]></add>
+        </operation>
+	</file>
+	
+	
+	
+	<!-- PayPal Payments Standard Buttons -->
+	<file name="admin/view/template/payment/pp_standard.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<div class="buttons"><a onclick="$('#form').submit();" class="button"><?php echo $button_save; ?></a><a onclick="location = '<?php echo $cancel; ?>';" class="button"><?php echo $button_cancel; ?></a></div>]]></search>
+            <add><![CDATA[
+			<div class="buttons row button-group">
+					<div class="btn-group">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class=" glyphicon glyphicon-cog"></span> <?php echo $text_actions; ?> <span class="caret"></span></button>
+					<ul class="dropdown-menu" role="menu">
+					<li><a onclick="$('#form').submit();"><i class="ion-checkmark-circled"></i> <?php echo $button_save; ?></a></li>
+					<li class="divider"></li>
+					<li><a href="<?php echo $cancel; ?>"><i class="ion-ios7-undo"></i> <?php echo $button_cancel; ?></a></li>
+					</ul>
+					</div>
+				</div>
+			]]></add>
+        </operation>
+	</file>
+	
+	
+	
+	<!-- Information Form -->
+	<file name="admin/view/template/catalog/information_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<?php echo $entry_keyword; ?>]]></search>
+            <add><![CDATA[<div class="alert alert-warning" role="alert"><span class="glyphicon glyphicon-info-sign"></span> <?php echo $entry_keyword; ?></div>]]></add>
+        </operation>
+	</file>
+	
+	
+	
+	<!-- Product List Buttons -->
+	<file name="admin/view/template/*/product_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<div class="buttons"><a href="<?php echo $insert; ?>" class="button"><?php echo $button_insert; ?></a><a onclick="$('#form').attr('action', '<?php echo $copy; ?>'); $('#form').submit();" class="button"><?php echo $button_copy; ?></a><a onclick="$('form').submit();" class="button"><?php echo $button_delete; ?></a></div>]]></search>
+            <add><![CDATA[
+			<div class="buttons row button-group">
+				<div class="btn-group">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class=" glyphicon glyphicon-cog"></span> <?php echo $text_actions; ?> <span class="caret"></span></button>
+				<ul class="dropdown-menu" role="menu">
+				<li><a href="<?php echo $insert; ?>"><i class="ion-ios7-plus"></i> <?php echo $button_insert; ?></a></li>
+				<li><a onclick="$('#form').attr('action', '<?php echo $copy; ?>'); $('#form').submit();"><i class="ion-ios7-browsers"></i> <?php echo $button_copy; ?></a></li>
+				<li class="divider"></li>
+				<li><a onclick="$('#form').submit();"><i class="ion-android-trash"></i> <?php echo $button_delete; ?></a></li>
+				</ul>
+				</div>
+				</div>
+			]]></add>
+        </operation>
+	</file>
+	
+	
+	
+	<!-- Profile List Buttons -->
+	<file name="admin/view/template/*/profile_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<div class="buttons"><a href="<?php echo $insert; ?>" class="button"><?php echo $button_insert; ?></a><a onclick="$('#form').attr('action', '<?php echo $copy; ?>'); $('#form').submit();" class="button"><?php echo $button_copy; ?></a><a onclick="$('form').submit();" class="button"><?php echo $button_delete; ?></a></div>]]></search>
+            <add><![CDATA[
+			<div class="buttons row button-group">
+				<div class="btn-group">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class=" glyphicon glyphicon-cog"></span> <?php echo $text_actions; ?> <span class="caret"></span></button>
+				<ul class="dropdown-menu" role="menu">
+				<li><a href="<?php echo $insert; ?>"><i class="ion-ios7-plus"></i> <?php echo $button_insert; ?></a></li>
+				<li><a onclick="$('#form').attr('action', '<?php echo $copy; ?>'); $('#form').submit();"><i class="ion-ios7-browsers"></i> <?php echo $button_copy; ?></a></li>
+				<li class="divider"></li>
+				<li><a onclick="$('#form').submit();"><i class="ion-android-trash"></i> <?php echo $button_delete; ?></a></li>
+				</ul>
+				</div>
+				</div>
+			]]></add>
+        </operation>
+	</file>
+
+	
+	
+	<!-- Catalog Profile List -->
+	<file name="admin/view/template/catalog/profile_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[[<a href="<?php echo $action['href'] ?>"><?php echo $action['name'] ?></a>]]]></search>
+            <add><![CDATA[<a class="action-link" href="<?php echo $action['href'] ?>"><i class="ion-compose"></i> <?php echo $action['name'] ?></a>]]></add>
+        </operation>
+	</file>
+	
+	
+	
+	<!-- Profiles -->
+	<file name="admin/view/template/*/profile_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<?php echo $text_recurring_help ?>]]></search>
+            <add><![CDATA[<div class="alert alert-info" role="alert"><span class="glyphicon glyphicon-info-sign"></span> <?php echo $text_recurring_help ?></div>]]></add>
+        </operation>
+	</file>
+	
+	
+	
+	<!-- Manufacturer -->
+	<file name="admin/view/template/*/manufacturer_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<?php echo $entry_keyword; ?>]]></search>
+            <add><![CDATA[<div class="alert alert-warning" role="alert"><span class="glyphicon glyphicon-info-sign"></span> <?php echo $entry_keyword; ?></div>]]></add>
+        </operation>
+	</file>
+	
+	
+	
+	<!-- Download -->
+	<file name="admin/view/template/*/download_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<?php echo $entry_filename; ?>]]></search>
+            <add><![CDATA[<div class="alert alert-warning" role="alert"><span class="glyphicon glyphicon-info-sign"></span> <?php echo $entry_filename; ?></div>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a id="button-upload" class="button"><?php echo $button_upload; ?></a>]]></search>
+            <add><![CDATA[<a id="button-upload" class="btn btn-info"><i class="ion-ios7-upload-outline"></i> <?php echo $button_upload; ?></a>]]></add>
+        </operation>
+	</file>
+	
+
+	<!-- Amazon Payment -->
+	<file name="admin/view/template/payment/amazon_checkout.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<div class="warning"><?php echo $error; ?></div>]]></search>
+            <add><![CDATA[<div class="alert alert-warning"><?php echo $error; ?></div>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<p><?php echo $text_amazon_join ?></p>]]></search>
+            <add><![CDATA[<div class="alert alert-info" role="alert"><span class="glyphicon glyphicon-info-sign"></span> <p><?php echo $text_amazon_join ?></p></div>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<?php echo $text_allowed_ips ?><br /><span class="help"><?php echo $help_allowed_ips ?></span>]]></search>
+            <add><![CDATA[<div class="alert alert-info" role="alert"><span class="glyphicon glyphicon-info-sign"></span> <?php echo $text_allowed_ips ?> <?php echo $help_allowed_ips ?></div>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a class="button" id="add-ip"><?php echo $text_add ?></a>]]></search>
+            <add><![CDATA[<a class="btn btn-info" id="add-ip"><i class="ion-ios7-plus"></i> <?php echo $text_add ?></a>]]></add>
+        </operation>
+	</file>
+
+	
+	
+	<!-- Klarna Payment -->
+	<file name="admin/view/template/payment/klarna_account.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a href="<?php echo $clear; ?>" class="button"><?php echo $button_clear ?></a>]]></search>
+            <add><![CDATA[<a href="<?php echo $clear; ?>" class="btn btn-danger"><i class="ion-android-trash"></i> <?php echo $button_clear ?></a>]]></add>
+        </operation>
+	</file>
+	
+	
+	
+	<!-- Klarna Invoice -->
+	<file name="admin/view/template/payment/klarna_invoice.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a href="<?php echo $clear; ?>" class="button"><?php echo $button_clear ?></a>]]></search>
+            <add><![CDATA[<a href="<?php echo $clear; ?>" class="btn btn-danger"><i class="ion-android-trash"></i> <?php echo $button_clear ?></a>]]></add>
+        </operation>
+	</file>
+
+	
+	
+	<!-- PayPal Express Checkout Payment -->
+	<file name="admin/view/template/payment/pp_express.tpl">
+		
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a onclick="image_upload('image', 'thumb');"><?php echo $text_browse; ?></a>]]></search>
+            <add><![CDATA[<a class="btn btn-info" onclick="image_upload('image', 'thumb');"><i class="ion-image"></i> <?php echo $text_browse; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a onclick="$('#thumb').attr('src', '<?php echo $no_image; ?>'); $('#image').attr('value', '');"><?php echo $text_clear; ?></a>]]></search>
+            <add><![CDATA[<a class="btn btn-default" onclick="$('#thumb').attr('src', '<?php echo $no_image; ?>'); $('#image').attr('value', '');"><i class="ion-ios7-loop-strong"></i> <?php echo $text_clear; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<div class="image"><img src="<?php echo $thumb; ?>" alt="" id="thumb" />]]></search>
+            <add><![CDATA[<div class="image table"><img src="<?php echo $thumb; ?>" alt="" id="thumb" />]]></add>
+        </operation>
+	</file>
+
+	
+	
+	<!-- Report List -->
+	<file name="admin/view/template/report/product_viewed.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<div class="buttons"><a href="<?php echo $reset; ?>" class="button"><?php echo $button_reset; ?></a></div>]]></search>
+            <add><![CDATA[<div class="buttons row button-group"><a href="<?php echo $reset; ?>" class="btn btn-info"><span class="glyphicon glyphicon-refresh"></span> <?php echo $button_reset; ?></a></div>]]></add>
+        </operation>
+	</file>
+
+
+
+	<!-- System > Settings -->
+	<file name="admin/view/template/setting/setting.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a onclick="image_upload('logo', 'thumb-logo');"><?php echo $text_browse; ?></a>]]></search>
+            <add><![CDATA[<a class="btn btn-info" onclick="image_upload('logo', 'thumb-logo');"><i class="ion-image"></i> <?php echo $text_browse; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a onclick="$('#thumb-logo').attr('src', '<?php echo $no_image; ?>'); $('#logo').attr('value', '');"><?php echo $text_clear; ?></a>]]></search>
+            <add><![CDATA[<a class="btn btn-default" onclick="$('#thumb-logo').attr('src', '<?php echo $no_image; ?>'); $('#logo').attr('value', '');"><i class="ion-ios7-loop-strong"></i> <?php echo $text_clear; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a onclick="image_upload('icon', 'thumb-icon');"><?php echo $text_browse; ?></a>]]></search>
+            <add><![CDATA[<a class="btn btn-info" onclick="image_upload('icon', 'thumb-icon');"><i class="ion-image"></i> <?php echo $text_browse; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a onclick="$('#thumb-icon').attr('src', '<?php echo $no_image; ?>'); $('#icon').attr('value', '');"><?php echo $text_clear; ?></a>]]></search>
+            <add><![CDATA[<a class="btn btn-default" onclick="$('#thumb-icon').attr('src', '<?php echo $no_image; ?>'); $('#icon').attr('value', '');"><i class="ion-ios7-loop-strong"></i> <?php echo $text_clear; ?></a>]]></add>
+        </operation>
+	</file>
+	
+	
+	<!-- Language List -->
+	<file name="admin/view/template/localisation/language_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<?php echo $language['name']; ?>]]></search>
+            <add><![CDATA[
+			<?php if ($language['code'] == 'en') { ?>
+			<img src="view/image/flags/england.png" alt="" /> <?php echo $language['name']; ?>
+			<?php } else { ?>
+			<img src="view/image/flags/<?php echo $language['code'];?>.png" alt="" /> <?php echo $language['name']; ?>
+			<?php } ?>
+			]]></add>
+        </operation>
+	</file>
+	
+	
+	
+	<!-- Country List -->
+	<file name="admin/view/template/localisation/country_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<?php echo $country['name']; ?>]]></search>
+            <add><![CDATA[
+			<?php if ($country['iso_code_2'] == 'en') { ?>
+			<img src="view/image/flags/england.png" alt="" /> <?php echo $country['name']; ?>
+			<?php } else { ?>
+			<img src="view/image/flags/<?php echo $country['iso_code_2'];?>.png" alt="" /> <?php echo $country['name']; ?>
+			<?php } ?>
+			]]></add>
+        </operation>
+	</file>
+	
+	
+	
+	<!-- Error Log -->
+	<file name="admin/view/template/tool/error_log.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<div class="buttons"><a href="<?php echo $clear; ?>" class="button"><?php echo $button_clear; ?></a></div>]]></search>
+            <add><![CDATA[
+				<div class="buttons row button-group">
+					<div class="btn-group">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class=" glyphicon glyphicon-cog"></span> <?php echo $text_actions; ?> <span class="caret"></span></button>
+					<ul class="dropdown-menu" role="menu">
+					<li><a href="<?php echo $clear; ?>"><i class="ion-android-trash"></i> <?php echo $button_clear; ?></a></li>
+					</ul>
+					</div>
+				</div>
+			]]></add>
+        </operation>
+	</file>
+
+	
+	
+	<!-- Backup -->
+	<file name="admin/view/template/tool/backup.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<div class="buttons"><a onclick="$('#restore').submit();" class="button"><?php echo $button_restore; ?></a><a onclick="$('#backup').submit();" class="button"><?php echo $button_backup; ?></a></div>]]></search>
+            <add><![CDATA[
+				<div class="buttons row button-group">
+					<div class="btn-group">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class=" glyphicon glyphicon-cog"></span> <?php echo $text_actions; ?> <span class="caret"></span></button>
+					<ul class="dropdown-menu" role="menu">
+					<li><a onclick="$('#restore').submit();"><i class="ion-hammer"></i> <?php echo $button_restore; ?></a></li>
+					<li class="divider"></li>
+					<li><a onclick="$('#backup').submit();"><i class="ion-android-archive"></i> <?php echo $button_backup; ?></a></li>
+					</ul>
+					</div>
+				</div>
+			]]></add>
+        </operation>	
+		<operation error="skip">
+            <search position="replace" offset="24"><![CDATA[<form action="<?php echo $restore; ?>" method="post" enctype="multipart/form-data" id="restore">]]></search>
+            <add><![CDATA[
+					<form action="<?php echo $restore; ?>" method="post" enctype="multipart/form-data" id="restore">
+					<div class="input-group">
+					<span class="input-group-addon"><?php echo $entry_restore; ?></span>
+					<input type="file" name="import" />
+					</div>
+					</form>
+				  
+					<form action="<?php echo $backup; ?>" method="post" enctype="multipart/form-data" id="backup">
+					<table class="form">
+					  <tr>
+						<td><?php echo $entry_backup; ?></td>
+						<td style="padding:15px"><div class="scrollbox">
+							<?php $class = 'odd'; ?>
+							<?php foreach ($tables as $table) { ?>
+							<?php $class = ($class == 'even' ? 'odd' : 'even'); ?>
+							<div class="<?php echo $class; ?>">
+							  <input class="check-backup" type="checkbox" name="backup[]" value="<?php echo $table; ?>" checked="checked" />
+							  <?php echo $table; ?></div>
+							<?php } ?>
+						  </div>
+						  <input type="checkbox" id="ckbCheckAllBackup"> <?php echo $text_select_all; ?> / <?php echo $text_unselect_all; ?></td>
+			
+			
+			<script type="text/javascript" charset="utf-8">
+				$(document).ready(function() {
+				  $('#ckbCheckAllBackup')
+					.on('ifChecked', function() {
+						$('.check-backup').iCheck('check');
+					})
+					.on('ifUnchecked', function() {
+						$('.check-backup').iCheck('uncheck');
+					});
+				});
+			</script>
+					  </tr>
+					</table>
+					</form>
+	
+		]]></add>
+		</operation>
+	</file>
+
+	
+	
+	<!-- Sale Order Info -->
+	<file name="admin/view/template/sale/order_info.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<span id="invoice"><b>[</b> <a id="invoice-generate"><?php echo $text_generate; ?></a> <b>]</b></span>]]></search>
+            <add><![CDATA[<span id="invoice"><a class="btn btn-info" id="invoice-generate"><i class="ion-document"></i> <?php echo $text_generate; ?></a></span>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a id="button-history" class="button"><?php echo $button_add_history; ?></a>]]></search>
+            <add><![CDATA[<a id="button-history" class="btn btn-info"><i class="ion-clipboard"></i> <?php echo $button_add_history; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<span id="reward"><b>[</b> <a id="reward-add"><?php echo $text_reward_add; ?></a> <b>]</b></span>]]></search>
+            <add><![CDATA[<span id="reward"><a id="reward-add" class="btn btn-info"><i class="ion-android-star"></i> <?php echo $text_reward_add; ?></a></span>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<span id="reward"><b>[</b> <a id="reward-remove"><?php echo $text_reward_remove; ?></a> <b>]</b></span>]]></search>
+            <add><![CDATA[<span id="reward"><a id="reward-remove" class="btn btn-info"><i class="ion-ios7-minus"></i> <?php echo $text_reward_remove; ?></a></span>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[$('#reward').html('<b>[</b> <a id="reward-add"><?php echo $text_reward_add; ?></a> <b>]</b>');]]></search>
+            <add><![CDATA[$('#reward').html('<a id="reward-add" class="btn btn-info"><i class="ion-android-star"></i> <?php echo $text_reward_add; ?></a>');]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[$('#reward').html('<b>[</b> <a id="reward-remove"><?php echo $text_reward_remove; ?></a> <b>]</b>');]]></search>
+            <add><![CDATA[$('#reward').html('<span id="reward"><a id="reward-remove" class="btn btn-info"><i class="ion-ios7-minus"></i> <?php echo $text_reward_remove; ?></a></span>');]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<span id="commission"><b>[</b> <a id="commission-add"><?php echo $text_commission_add; ?></a> <b>]</b></span>]]></search>
+            <add><![CDATA[<span id="commission"><a id="commission-add" class="btn btn-info"><i class="ion-cash"></i> <?php echo $text_commission_add; ?></a></span>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<span id="commission"><b>[</b> <a id="commission-remove"><?php echo $text_commission_remove; ?></a> <b>]</b></span>]]></search>
+            <add><![CDATA[<span id="commission"><a id="commission-remove" class="btn btn-info"><i class="ion-ios7-minus"></i> <?php echo $text_commission_remove; ?></a></span>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[$('#commission').html('<b>[</b> <a id="commission-remove"><?php echo $text_commission_remove; ?></a> <b>]</b>');]]></search>
+            <add><![CDATA[$('#commission').html('<a id="commission-remove" class="btn btn-info"><i class="ion-ios7-minus"></i> <?php echo $text_commission_remove; ?></a>');]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[$('#commission').html('<b>[</b> <a id="commission-add"><?php echo $text_commission_add; ?></a> <b>]</b>');]]></search>
+            <add><![CDATA[$('#commission').html('<a id="commission-add" class="btn btn-info"><i class="ion-cash"></i> <?php echo $text_commission_add; ?></a>');]]></add>
+        </operation>
+	</file>
+	
+	
+	
+	<!-- Sale Recurring List -->
+	<file name="admin/view/template/sale/recurring_list.tpl">
+		<operation error="skip">
+            <search position="replace" offset="10"><![CDATA[<section class="content-margin">]]></search>
+            <add><![CDATA[<section class="content-margin">]]></add>
+		</operation>
+	</file>
+	
+	
+	
+	<!-- Sale Return List -->
+	<file name="admin/view/template/sale/return_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<td><input type="text" name="filter_model" value="<?php echo $filter_model; ?>" /></td>]]></search>
+            <add><![CDATA[<td><input type="text" name="filter_model" value="<?php echo $filter_model; ?>" size="5" /></td>]]></add>
+		</operation>
+	</file>
+	
+	
+	
+	<!-- Sale Customer List -->
+	<file name="admin/view/template/sale/customer_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<td><input type="text" name="filter_ip" value="<?php echo $filter_ip; ?>" /></td>]]></search>
+            <add><![CDATA[<td><input type="text" name="filter_ip" value="<?php echo $filter_ip; ?>" size="5" /></td>]]></add>
+		</operation>
+	</file>
+	
+	
+	
+	<!-- Sale Mail -->
+	<file name="admin/view/template/sale/contact.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[$('input[name=\'subject\']').after('<span class="error">' + json['error']['subject'] + '</span>');]]></search>
+            <add><![CDATA[$('input[name=\'subject\']').after('<div class="alert alert-danger">' + json['error']['subject'] + '</div>');]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[$('textarea[name=\'message\']').parent().append('<span class="error">' + json['error']['message'] + '</span>');]]></search>
+            <add><![CDATA[$('textarea[name=\'message\']').parent().append('<div class="alert alert-danger">' + json['error']['message'] + '</div>');]]></add>
+        </operation>
+	</file>
+	
+	
+	
+	<!-- Title Icons -->
+	<file name="admin/view/template/catalog/product_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/product.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-grid"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/catalog/category_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/category.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-android-sort"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/catalog/category_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/category.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-android-sort"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/catalog/product_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/product.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-grid"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/catalog/filter_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/order.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-funnel"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/catalog/filter_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/information.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-funnel"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/catalog/profile_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/product.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-bag"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/catalog/profile_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/product.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-bag"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/catalog/attribute_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/order.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-ios7-star-outline"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/catalog/attribute_group_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/order.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-ios7-star-outline"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/catalog/attribute_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/information.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-ios7-star-outline"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/catalog/attribute_group_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/order.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-ios7-star-outline"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/catalog/option_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/order.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-ios7-plus-outline"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/catalog/option_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/information.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-ios7-plus-outline"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/catalog/manufacturer_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/shipping.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-hammer"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/catalog/manufacturer_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/shipping.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-hammer"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/catalog/download_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/download.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-code-download"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/catalog/download_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/download.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-code-download"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/catalog/review_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/review.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-android-forums"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/catalog/review_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/review.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-android-forums"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/catalog/information_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/information.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-android-information"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/catalog/information_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/information.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-android-information"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/extension/module.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/module.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-ios7-gear"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/module/*.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/module.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-ios7-gear"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/extension/shipping.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/shipping.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-plane"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/shipping/*.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/shipping.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-plane"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/extension/payment.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/payment.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-card"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/payment/*.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/payment.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-card"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/payment/*.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/payment.png" /><?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-card"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/payment/pp_express.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/payment.png" alt=""/> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-card"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/extension/total.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/total.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-android-sort"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/total/*.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/total.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-android-sort"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/extension/feed.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/feed.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-social-google-outline"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/feed/*.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/feed.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-social-google-outline"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/sale/order_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/order.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-bag"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a id="button-product" class="button"><?php echo $button_add_product; ?></a>]]></search>
+            <add><![CDATA[<a id="button-product" class="btn btn-info"><span class="glyphicon glyphicon-plus"></span> <?php echo $button_add_product; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a id="button-voucher" class="button"><?php echo $button_add_voucher; ?></a>]]></search>
+            <add><![CDATA[<a id="button-voucher" class="btn btn-info"><span class="glyphicon glyphicon-plus"></span> <?php echo $button_add_voucher; ?></a>]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[<a id="button-update" class="button"><?php echo $button_update_total; ?></a>]]></search>
+            <add><![CDATA[<a id="button-update" class="btn btn-info"><span class="glyphicon glyphicon-ok-circle"></span> <?php echo $button_update_total; ?></a>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/sale/contact.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/mail.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-email"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/sale/order_info.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/order.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-bag"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/sale/order_invoice.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><?php echo $text_invoice; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-bag"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/sale/order_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/order.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-bag"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/sale/recurring_info.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/order.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-ios7-clock-outline"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/sale/recurring_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/order.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-ios7-clock-outline"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/sale/return_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/customer.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-arrow-return-left"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/sale/return_info.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/customer.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-arrow-return-left"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/sale/return_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/order.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-arrow-return-left"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/sale/customer_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/customer.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-android-social-user"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/sale/customer_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/customer.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-android-social-user"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/sale/customer_group_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/customer.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-ios7-people"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/sale/customer_group_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/customer.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-ios7-people"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/sale/customer_ban_ip_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/customer.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-android-close"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/sale/customer_ban_ip_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/customer.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-android-close"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/sale/affiliate_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/customer.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-ios7-briefcase"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/sale/affiliate_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/customer.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-ios7-briefcase"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+
+	<file name="admin/view/template/sale/coupon_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/customer.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-cash"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/sale/coupon_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/customer.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-cash"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/sale/voucher_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/payment.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-ios7-pricetag-outline"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/sale/voucher_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/payment.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-ios7-pricetag-outline"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/sale/voucher_theme_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/payment.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-images"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/sale/voucher_theme_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/payment.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-images"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/setting/*.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/setting.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-gear-b"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/design/layout_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/layout.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-eye"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/design/layout_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/layout.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-eye"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/design/banner_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/banner.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-images"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/design/banner_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/banner.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-images"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/user/user_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/user.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-android-social-user"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/user/user_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/user.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-android-social-user"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/user/user_group_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/user-group.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-ios7-people"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/user/user_group_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/user-group.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-ios7-people"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/localisation/language_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/language.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-flag"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/localisation/language_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/language.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-flag"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/localisation/currency_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/payment.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-cash"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/localisation/currency_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/payment.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-cash"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/localisation/stock_status_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/stock-status.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-battery-empty"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/localisation/stock_status_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/stock-status.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-battery-empty"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/localisation/order_status_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/order.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-android-clock"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/localisation/order_status_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/order.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-android-clock"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/localisation/return_status_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/order.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-ios7-settings-strong"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/localisation/return_status_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/order.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-ios7-settings-strong"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/localisation/return_action_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/order.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-ios7-more-outline"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/localisation/return_action_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/order.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-ios7-more-outline"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/localisation/return_reason_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/order.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-help"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/localisation/return_reason_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/order.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-help"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/localisation/country_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/country.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-android-earth"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/localisation/country_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/country.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-android-earth"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/localisation/zone_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/country.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-android-location"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/localisation/zone_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/country.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-android-location"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/localisation/geo_zone_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/country.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-compass"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/localisation/geo_zone_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/country.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-compass"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/localisation/tax_class_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/tax.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-ios7-browsers-outline"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/localisation/tax_class_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/tax.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-ios7-browsers-outline"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/localisation/tax_rate_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/tax.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-cash"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/localisation/tax_rate_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/tax.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-cash"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/localisation/length_class_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/length.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-ios7-barcode-outline"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/localisation/length_class_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/length.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-ios7-barcode-outline"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/localisation/weight_class_form.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/shipping.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-cube"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/localisation/weight_class_list.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/shipping.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-cube"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/report/*.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/report.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-connection-bars"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/tool/error_log.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/log.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-alert-circled"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/tool/backup.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[<h1><img src="view/image/backup.png" alt="" /> <?php echo $heading_title; ?></h1>]]></search>
+            <add><![CDATA[<h1><i class="ion-medkit"></i> <?php echo $heading_title; ?></h1>]]></add>
+        </operation>
+	</file>
+	
+	
+	
+	<!-- Textarea -->
+	<file name="admin/view/template/*/*.tpl">
+		<operation error="skip">
+            <search position="replace"><![CDATA[size="100"]]></search>
+            <add><![CDATA[]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[size="80"]]></search>
+            <add><![CDATA[]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[cols="80"]]></search>
+            <add><![CDATA[]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[cols="60"]]></search>
+            <add><![CDATA[]]></add>
+        </operation>
+		<operation error="skip">
+            <search position="replace"><![CDATA[cols="40"]]></search>
+            <add><![CDATA[]]></add>
+        </operation>
+	</file>
+</modification>

@@ -1,0 +1,90 @@
+<modification>
+<id>Flat Admin Responsive Translations</id>
+<version>2.0.0</version>
+<vqmver>2.x.x</vqmver>
+<author>ThemeBooster.com</author>
+
+	<!-- Language Strings: English -->
+	<file name="admin/language/english/common/header.php">
+		<operation error="skip">
+			<search position="replace"><![CDATA[You are logged in as <span>%s</span>]]></search>
+			<add><![CDATA[Welcome %s!]]></add>
+		</operation>
+		<operation error="skip">
+			<search position="before"><![CDATA[?>]]></search>
+			<add><![CDATA[
+			$_['text_pending_order_evidence'] = 'New Pending Order';
+			$_['text_pending_orders_evidence'] = 'New Pending Orders';
+			$_['text_approval_customer_evidence'] = 'New Awaiting Customer';
+			$_['text_approval_customers_evidence'] = 'New Awaiting Customers';
+			$_['text_view'] = 'View now';
+			]]></add>
+		</operation>
+	</file>
+	
+	<file name="admin/language/english/*/*.php">
+		<operation error="skip">
+			<search position="before"><![CDATA[?>]]></search>
+			<add><![CDATA[
+			$_['text_actions'] = 'Available Actions';
+			]]></add>
+		</operation>
+	</file>
+	
+	<file name="admin/language/english/catalog/category.php">
+		<operation error="skip">
+			<search position="before"><![CDATA[?>]]></search>
+			<add><![CDATA[$_['column_image'] = 'Image';]]></add>
+		</operation>
+	</file>
+	
+	<file name="admin/language/english/common/home.php">
+		<operation error="skip">
+			<search position="before"><![CDATA[?>]]></search>
+			<add><![CDATA[
+			$_['text_menu_statistics'] = 'Sales Statistics';
+			$_['text_new_customers'] = 'Total Customers';
+			$_['text_new_reviews'] = 'Awaiting Reviews';
+			$_['text_year_sale'] = 'Sales This Year';
+			$_['text_today_sale'] = 'Sales Today';
+			$_['text_month_sale'] = 'Sales This Month';
+			$_['text_week_sale'] = 'Sales This Week';
+			$_['text_pending_orders'] = 'Pending Orders';
+			$_['text_orders'] = 'Total Orders';
+			$_['text_new_affiliates'] = 'Awaiting Affiliates';
+			$_['text_awaiting_customers'] = 'Awaiting Customers';
+			$_['text_approval_customers_evidence'] = 'New Awaiting Customers: click to view!';
+			$_['text_view'] = 'View now';
+			$_['text_view_all'] = 'View all';
+			$_['text_jump_to_statistics'] = 'Jump to Statistics';
+			$_['viewed_products_title'] = '5 Most Viewed Products';
+			$_['bestsellers_title'] = 'Top 5 Products';
+			$_['top_customers_title'] = 'Top 5 Customers';
+			$_['top_coupon_title'] = 'Top 5 Coupon';
+			$_['item'] = ' item sold';
+			$_['items'] = ' items sold';
+			$_['time'] = ' time';
+			$_['times'] = ' times';
+			$_['number_order'] = ' order';
+			$_['number_orders'] = ' orders';
+			$_['star_rating'] = ' star';
+			$_['stars_rating'] = ' stars';
+			]]></add>
+		</operation>
+	</file>
+	
+	
+	<!-- EDIT if you use a different language than english  -->
+
+	<!-- Add your translation here:
+		1. Copy from <file to </file>
+		2. Paste after </file>
+		3. Change english with your language
+		4. Change all the words between '' with your translation (remember to use '' and DO NOT translate words between [''])
+		5. Save
+		6. Overwrite
+	-->
+	
+	
+	
+</modification>
